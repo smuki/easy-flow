@@ -9,11 +9,16 @@
                     <el-button type="text" icon="el-icon-delete" size="large" @click="deleteElement" :disabled="!this.activeElement.type"></el-button>
                     <el-divider direction="vertical"></el-divider>
                     <el-button type="text" icon="el-icon-download" size="large" @click="downloadData"></el-button>
+<!--                    <el-divider direction="vertical"></el-divider>-->
+<!--                    <el-button type="text" icon="el-icon-plus" size="large" @click="zoomAdd"></el-button>-->
+<!--                    <el-divider direction="vertical"></el-divider>-->
+<!--                    <el-button type="text" icon="el-icon-minus" size="large" @click="zoomSub"></el-button>-->
                     <div style="float: right;margin-right: 5px">
                         <el-button plain round icon="el-icon-document" @click="dataInfo" size="mini">流程信息</el-button>
                         <el-button plain round @click="dataReloadA" icon="el-icon-refresh" size="mini">切换流程A</el-button>
                         <el-button plain round @click="dataReloadB" icon="el-icon-refresh" size="mini">切换流程B</el-button>
                         <el-button plain round @click="dataReloadC" icon="el-icon-refresh" size="mini">切换流程C</el-button>
+                        <el-button plain round @click="dataReloadD" icon="el-icon-refresh" size="mini">自定义样式</el-button>
                     </div>
                 </div>
             </el-col>
@@ -23,7 +28,7 @@
                 <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
             </div>
             <div id="efContainer" ref="efContainer" class="container" v-flowDrag>
-                <template v-for="node in data.nodeList">
+                <template v-for="node in data.activities">
                     <flow-node
                             :id="node.id"
                             :key="node.id"
@@ -40,7 +45,7 @@
             </div>
             <!-- 右侧表单 -->
             <div style="width: 300px;border-left: 1px solid #dce3e8;background-color: #FBFBFB">
-                <flow-node-form ref="nodeForm" @setLineLabel="setLineLabel"></flow-node-form>
+                <flow-node-form ref="nodeForm" @setLineLabel="setLineLabel" @repaintEverything="repaintEverything"></flow-node-form>
             </div>
         </div>
         <!-- 流程数据详情 -->
@@ -63,6 +68,7 @@
     import { getDataA } from './data_A'
     import { getDataB } from './data_B'
     import { getDataC } from './data_C'
+    import { getDataD } from './data_D'
 
     export default {
         data() {
@@ -86,7 +92,8 @@
                     // 连线ID
                     sourceId: undefined,
                     targetId: undefined
-                }
+                },
+                zoom: 0.5
             }
         },
         // 一些基础配置移动该文件中
@@ -157,25 +164,17 @@
                         this.activeElement.sourceId = conn.sourceId
                         this.activeElement.targetId = conn.targetId
                         this.$refs.nodeForm.lineInit({
-                            from: conn.sourceId,
-                            to: conn.targetId,
+                            sourceActivityId: conn.sourceId,
+                            destinationActivityId: conn.targetId,
                             label: conn.getLabel()
                         })
-                        // this.$confirm('确定删除所点击的线吗?', '提示', {
-                        //     confirmButtonText: '确定',
-                        //     cancelButtonText: '取消',
-                        //     type: 'warning'
-                        // }).then(() => {
-                        //     this.jsPlumb.deleteConnection(conn)
-                        // }).catch(() => {
-                        // })
                     })
                     // 连线
                     this.jsPlumb.bind("connection", (evt) => {
-                        let from = evt.source.id
-                        let to = evt.target.id
+                        let sourceActivityId = evt.source.id
+                        let destinationActivityId = evt.target.id
                         if (this.loadEasyFlowFinish) {
-                            this.data.lineList.push({from: from, to: to})
+                            this.data.connections.push({sourceActivityId: sourceActivityId, destinationActivityId: destinationActivityId})
                         }
                     })
 
@@ -196,17 +195,17 @@
 
                     // 连线
                     this.jsPlumb.bind("beforeDrop", (evt) => {
-                        let from = evt.sourceId
-                        let to = evt.targetId
-                        if (from === to) {
+                        let sourceActivityId = evt.sourceId
+                        let destinationActivityId = evt.targetId
+                        if (sourceActivityId === destinationActivityId) {
                             this.$message.error('节点不支持连接自己')
                             return false
                         }
-                        if (this.hasLine(from, to)) {
+                        if (this.hasLine(sourceActivityId, destinationActivityId)) {
                             this.$message.error('该关系已存在,不允许重复创建')
                             return false
                         }
-                        if (this.hashOppositeLine(from, to)) {
+                        if (this.hashOppositeLine(sourceActivityId, destinationActivityId)) {
                             this.$message.error('不支持两个节点之间连线回环');
                             return false
                         }
@@ -224,31 +223,39 @@
             // 加载流程图
             loadEasyFlow() {
                 // 初始化节点
-                for (var i = 0; i < this.data.nodeList.length; i++) {
-                    let node = this.data.nodeList[i]
+                for (var i = 0; i < this.data.activities.length; i++) {
+                    let node = this.data.activities[i]
                     // 设置源点，可以拖出线连接其他节点
                     this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions)
                     // // 设置目标点，其他源点拖出的线可以连接该节点
                     this.jsPlumb.makeTarget(node.id, this.jsplumbTargetOptions)
                     this.jsPlumb.draggable(node.id, {
-                        containment: 'parent', stop: function (el) {
-                            console.log('停止拖拽', el)
+                        containment: 'parent',
+                        stop: function (el) {
                         }
                     })
                 }
                 // 初始化连线
-                for (var i = 0; i < this.data.lineList.length; i++) {
-                    let line = this.data.lineList[i]
-                    this.jsPlumb.connect({source: line.from, target: line.to, label: line.label ? line.label : ''}, this.jsplumbConnectOptions)
+                for (var i = 0; i < this.data.connections.length; i++) {
+                    let line = this.data.connections[i]
+                    var connParam = {
+                        source: line.sourceActivityId,
+                        target: line.destinationActivityId,
+                        label: line.label ? line.label : '',
+                        connector: line.connector ? line.connector : '',
+                        anchors: line.anchors ? line.anchors : undefined,
+                        paintStyle: line.paintStyle ? line.paintStyle : undefined,
+                    }
+                    this.jsPlumb.connect(connParam, this.jsplumbConnectOptions)
                 }
                 this.$nextTick(function () {
                     this.loadEasyFlowFinish = true
                 })
             },
-            setLineLabel(from, to, label) {
+            setLineLabel(sourceActivityId, destinationActivityId, label) {
                 var conn = this.jsPlumb.getConnections({
-                    source: from,
-                    target: to
+                    source: sourceActivityId,
+                    target: destinationActivityId
                 })[0]
                 if (!label || label === '') {
                     conn.removeClass('flowLabel')
@@ -259,8 +266,8 @@
                 conn.setLabel({
                     label: label,
                 })
-                this.data.lineList.forEach(function (line) {
-                    if (line.from == from && line.to == to) {
+                this.data.connections.forEach(function (line) {
+                    if (line.sourceActivityId == sourceActivityId && line.destinationActivityId == destinationActivityId) {
                         line.label = label
                     }
                 })
@@ -286,22 +293,22 @@
                 }
             },
             // 删除线
-            deleteLine(from, to) {
-                this.data.lineList = this.data.lineList.filter(function (line) {
-                    if (line.from == from && line.to == to) {
+            deleteLine(sourceActivityId, destinationActivityId) {
+                this.data.connections = this.data.connections.filter(function (line) {
+                    if (line.sourceActivityId == sourceActivityId && line.destinationActivityId == destinationActivityId) {
                         return false
                     }
                     return true
                 })
             },
             // 改变连线
-            changeLine(oldFrom, oldTo) {
-                this.deleteLine(oldFrom, oldTo)
+            changeLine(oldsourceActivityId, oldTo) {
+                this.deleteLine(oldsourceActivityId, oldTo)
             },
             // 改变节点的位置
             changeNodeSite(data) {
-                for (var i = 0; i < this.data.nodeList.length; i++) {
-                    let node = this.data.nodeList[i]
+                for (var i = 0; i < this.data.activities.length; i++) {
+                    let node = this.data.activities[i]
                     if (node.id === data.nodeId) {
                         node.left = data.left
                         node.top = data.top
@@ -336,8 +343,8 @@
                 var index = 1
                 while (index < 10000) {
                     var repeat = false
-                    for (var i = 0; i < this.data.nodeList.length; i++) {
-                        let node = this.data.nodeList[i]
+                    for (var i = 0; i < this.data.activities.length; i++) {
+                        let node = this.data.activities[i]
                         if (node.name === nodeName) {
                             nodeName = origName + index
                             repeat = true
@@ -361,7 +368,7 @@
                 /**
                  * 这里可以进行业务判断、是否能够添加该节点
                  */
-                this.data.nodeList.push(node)
+                this.data.activities.push(node)
                 this.$nextTick(function () {
                     this.jsPlumb.makeSource(nodeId, this.jsplumbSourceOptions)
                     this.jsPlumb.makeTarget(nodeId, this.jsplumbTargetOptions)
@@ -384,7 +391,7 @@
                     /**
                      * 这里需要进行业务判断，是否可以删除
                      */
-                    this.data.nodeList = this.data.nodeList.filter(function (node) {
+                    this.data.activities = this.data.activities.filter(function (node) {
                         if (node.id === nodeId) {
                             // 伪删除，将节点隐藏，否则会导致位置错位
                             // node.show = false
@@ -405,24 +412,28 @@
                 this.$refs.nodeForm.nodeInit(this.data, nodeId)
             },
             // 是否具有该线
-            hasLine(from, to) {
-                for (var i = 0; i < this.data.lineList.length; i++) {
-                    var line = this.data.lineList[i]
-                    if (line.from === from && line.to === to) {
+            hasLine(sourceActivityId, destinationActivityId) {
+                for (var i = 0; i < this.data.connections.length; i++) {
+                    var line = this.data.connections[i]
+                    if (line.sourceActivityId === sourceActivityId && line.destinationActivityId === destinationActivityId) {
                         return true
                     }
                 }
                 return false
             },
             // 是否含有相反的线
-            hashOppositeLine(from, to) {
-                return this.hasLine(to, from)
+            hashOppositeLine(sourceActivityId, destinationActivityId) {
+                return this.hasLine(destinationActivityId, sourceActivityId)
             },
             nodeRightMenu(nodeId, evt) {
                 this.menu.show = true
                 this.menu.curNodeId = nodeId
                 this.menu.left = evt.x + 'px'
                 this.menu.top = evt.y + 'px'
+            },
+            repaintEverything() {
+                console.log('重绘')
+                this.jsPlumb.repaint()
             },
             // 流程数据信息
             dataInfo() {
@@ -434,8 +445,8 @@
             // 加载流程图
             dataReload(data) {
                 this.easyFlowVisible = false
-                this.data.nodeList = []
-                this.data.lineList = []
+                this.data.activities = []
+                this.data.connections = []
                 this.$nextTick(() => {
                     data = lodash.cloneDeep(data)
                     this.easyFlowVisible = true
@@ -460,13 +471,28 @@
             dataReloadC() {
                 this.dataReload(getDataC())
             },
+            // 模拟载入数据dataD
+            dataReloadD() {
+                this.dataReload(getDataD())
+            },
+            zoomAdd() {
+                if (this.zoom >= 1) {
+                    return
+                }
+                this.zoom = this.zoom + 0.1
+                this.$refs.efContainer.style.transform = `scale(${this.zoom})`
+                this.jsPlumb.setZoom(this.zoom)
+            },
+            zoomSub() {
+                if (this.zoom <= 0) {
+                    return
+                }
+                this.zoom = this.zoom - 0.1
+                this.$refs.efContainer.style.transform = `scale(${this.zoom})`
+                this.jsPlumb.setZoom(this.zoom)
+            },
             // 下载数据
             downloadData() {
-                var conn = this.jsPlumb.getConnections({
-                    source: 'nodeA',
-                    target: 'nodeB'
-                })[0]
-                console.log(conn)
                 this.$confirm('确定要下载该流程数据吗？', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',

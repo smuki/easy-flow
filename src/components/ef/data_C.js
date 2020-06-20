@@ -1,6 +1,6 @@
 var dataC = {
     name: '流程C',
-    nodeList: [
+    activities: [
         {
             id: 'nodeA',
             name: '流程C-节点A',
@@ -26,13 +26,13 @@ var dataC = {
             ico: 'el-icon-present'
         }
     ],
-    lineList: [
+    connections: [
         {
-            from: 'nodeA',
-            to: 'nodeB'
+            sourceActivityId: 'nodeA',
+            destinationActivityId: 'nodeB'
         }, {
-            from: 'nodeB',
-            to: 'nodeC'
+            sourceActivityId: 'nodeB',
+            destinationActivityId: 'nodeC'
         }
     ]
 }

@@ -1,9 +1,9 @@
-var data_B = {
-    name: '流程B',
+var data_D = {
+    name: '流程D',
     activities: [
         {
             id: 'nodeA',
-            name: '流程B-节点A',
+            name: '流程D-节点A',
             type: 'task',
             left: '18px',
             top: '223px',
@@ -13,7 +13,7 @@ var data_B = {
         {
             id: 'nodeB',
             type: 'task',
-            name: '流程B-节点B',
+            name: '流程D-节点B',
             left: '351px',
             top: '96px',
             ico: 'el-icon-goods',
@@ -21,7 +21,7 @@ var data_B = {
         },
         {
             id: 'nodeC',
-            name: '流程B-节点C',
+            name: '流程D-节点C',
             type: 'task',
             left: '354px',
             top: '351px',
@@ -29,7 +29,7 @@ var data_B = {
             state: 'warning'
         }, {
             id: 'nodeD',
-            name: '流程B-节点D',
+            name: '流程D-节点D',
             type: 'task',
             left: '723px',
             top: '215px',
@@ -40,21 +40,28 @@ var data_B = {
     connections: [{
         sourceActivityId: 'nodeA',
         destinationActivityId: 'nodeB',
-        label: '条件A'
+        label: '直线,自定义线样式,固定锚点',
+        connector: 'Straight',
+        anchors: ['Top', 'Bottom'],
+        paintStyle: {strokeWidth: 2, stroke: '#1879FF'}
     }, {
         sourceActivityId: 'nodeA',
         destinationActivityId: 'nodeC',
-        label: '条件B'
+        label: '贝塞尔曲线,固定锚点',
+        connector: 'Bezier',
+        anchors: ['Bottom', 'Left']
     }, {
         sourceActivityId: 'nodeB',
-        destinationActivityId: 'nodeD'
+        destinationActivityId: 'nodeD',
+        label: '默认连线样式,动态锚点'
     }, {
         sourceActivityId: 'nodeC',
-        destinationActivityId: 'nodeD'
+        destinationActivityId: 'nodeD',
+        label: '默认连线样式,动态锚点'
     }
     ]
 }
 
-export function getDataB() {
-    return data_B
+export function getDataD() {
+    return data_D
 }

@@ -37,7 +37,7 @@
                     </el-form-item>
                 </el-form>
             </div>
-            <div class="el-node-form-tag"></div>
+<!--            <div class="el-node-form-tag"></div>-->
         </div>
     </div>
 
@@ -66,7 +66,7 @@
             nodeInit(data, id) {
                 this.type = 'node'
                 this.data = data
-                data.nodeList.filter((node) => {
+                data.activities.filter((node) => {
                     if (node.id === id) {
                         this.node = cloneDeep(node)
                     }
@@ -78,12 +78,15 @@
             },
             // 修改连线
             saveLine() {
-                this.$emit('setLineLabel', this.line.from, this.line.to, this.line.label)
+                this.$emit('setLineLabel', this.line.sourceActivityId, this.line.destinationActivityId, this.line.label)
             },
             save() {
-                this.data.nodeList.filter((node) => {
+                this.data.activities.filter((node) => {
                     if (node.id === this.node.id) {
                         node.name = this.node.name
+                        node.left = this.node.left
+                        node.top = this.node.top
+                        this.$emit('repaintEverything')
                     }
                 })
             }
@@ -98,6 +101,9 @@
         margin-left: -15px;
         height: 40px;
         width: 15px;
-        background-color: #d0b0b0;
+        background-color: #fbfbfb;
+        border: 1px solid rgb(220, 227, 232);
+        border-right: none;
+        z-index: 0;
     }
 </style>
