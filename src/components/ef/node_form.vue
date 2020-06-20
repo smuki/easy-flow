@@ -29,7 +29,7 @@
 
                 <el-form :model="line" ref="dataForm" label-width="80px" v-show="type === 'line'">
                     <el-form-item label="条件">
-                        <el-input v-model="line.label"></el-input>
+                        <el-input v-model="line.outcome"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button icon="el-icon-close">重置</el-button>
@@ -78,7 +78,7 @@
             },
             // 修改连线
             saveLine() {
-                this.$emit('setLineLabel', this.line.sourceActivityId, this.line.destinationActivityId, this.line.label)
+                this.$emit('setLineLabel', this.line.sourceActivityId, this.line.destinationActivityId, this.line.outcome)
             },
             save() {
                 this.data.activities.filter((node) => {
