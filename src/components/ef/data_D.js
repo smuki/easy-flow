@@ -40,24 +40,24 @@ var data_D = {
     connections: [{
         sourceActivityId: 'nodeA',
         destinationActivityId: 'nodeB',
-        label: '直线,自定义线样式,固定锚点',
+        outcome: '直线,自定义线样式,固定锚点',
         connector: 'Straight',
         anchors: ['Top', 'Bottom'],
         paintStyle: {strokeWidth: 2, stroke: '#1879FF'}
     }, {
         sourceActivityId: 'nodeA',
         destinationActivityId: 'nodeC',
-        label: '贝塞尔曲线,固定锚点',
+        outcome: '贝塞尔曲线,固定锚点',
         connector: 'Bezier',
         anchors: ['Bottom', 'Left']
     }, {
         sourceActivityId: 'nodeB',
         destinationActivityId: 'nodeD',
-        label: '默认连线样式,动态锚点'
+        outcome: '默认连线样式,动态锚点'
     }, {
         sourceActivityId: 'nodeC',
         destinationActivityId: 'nodeD',
-        label: '默认连线样式,动态锚点'
+        outcome: '默认连线样式,动态锚点'
     }
     ]
 }

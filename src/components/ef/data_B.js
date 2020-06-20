@@ -40,11 +40,11 @@ var data_B = {
     connections: [{
         sourceActivityId: 'nodeA',
         destinationActivityId: 'nodeB',
-        label: '条件A'
+        outcome: '条件A'
     }, {
         sourceActivityId: 'nodeA',
         destinationActivityId: 'nodeC',
-        label: '条件B'
+        outcome: '条件B'
     }, {
         sourceActivityId: 'nodeB',
         destinationActivityId: 'nodeD'
