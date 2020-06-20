@@ -65,11 +65,16 @@
 .ef-node-container {
     position: absolute;
     display: flex;
-    width: 170px;
-    height: 32px;
-    border: 1px solid #E0E3E7;
-    border-radius: 5px;
-    background-color: #fff;
+    width: 180px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    max-width:320px;    
+    border: 1px solid #cccccc;
+    box-shadow: 2px 2px 19px #aaa;
+    border-radius: 0.5em;
+    opacity: 0.8;
+    background-color: #f1f1f1;   
 }
 
 .ef-node-container:hover {
