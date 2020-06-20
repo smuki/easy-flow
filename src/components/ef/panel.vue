@@ -241,7 +241,7 @@
                     var connParam = {
                         source: line.sourceActivityId,
                         target: line.destinationActivityId,
-                        outcome: line.outcome ? line.outcome : '',
+                        label: line.outcome ? line.outcome : '',
                         connector: line.connector ? line.connector : '',
                         anchors: line.anchors ? line.anchors : undefined,
                         paintStyle: line.paintStyle ? line.paintStyle : undefined,
@@ -264,7 +264,7 @@
                     conn.addClass('flowLabel')
                 }
                 conn.setLabel({
-                    outcome: outcome,
+                    label: outcome,
                 })
                 this.data.connections.forEach(function (line) {
                     if (line.sourceActivityId == sourceActivityId && line.destinationActivityId == destinationActivityId) {
