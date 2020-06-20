@@ -166,7 +166,7 @@
                         this.$refs.nodeForm.lineInit({
                             sourceActivityId: conn.sourceId,
                             destinationActivityId: conn.targetId,
-                            label: conn.getLabel()
+                            outcome: conn.getLabel()
                         })
                     })
                     // 连线
@@ -241,7 +241,7 @@
                     var connParam = {
                         source: line.sourceActivityId,
                         target: line.destinationActivityId,
-                        label: line.label ? line.label : '',
+                        outcome: line.outcome ? line.outcome : '',
                         connector: line.connector ? line.connector : '',
                         anchors: line.anchors ? line.anchors : undefined,
                         paintStyle: line.paintStyle ? line.paintStyle : undefined,
@@ -252,23 +252,23 @@
                     this.loadEasyFlowFinish = true
                 })
             },
-            setLineLabel(sourceActivityId, destinationActivityId, label) {
+            setLineLabel(sourceActivityId, destinationActivityId, outcome) {
                 var conn = this.jsPlumb.getConnections({
                     source: sourceActivityId,
                     target: destinationActivityId
                 })[0]
-                if (!label || label === '') {
+                if (!outcome || outcome === '') {
                     conn.removeClass('flowLabel')
                     conn.addClass('emptyFlowLabel')
                 } else {
                     conn.addClass('flowLabel')
                 }
                 conn.setLabel({
-                    label: label,
+                    outcome: outcome,
                 })
                 this.data.connections.forEach(function (line) {
                     if (line.sourceActivityId == sourceActivityId && line.destinationActivityId == destinationActivityId) {
-                        line.label = label
+                        line.outcome = outcome
                     }
                 })
 
