@@ -4,8 +4,8 @@
             <span class="ef-node-pmenu" @click="menu.open = !menu.open"><i :class="{'el-icon-caret-bottom': menu.open,'el-icon-caret-right': !menu.open}"></i>&nbsp;{{menu.name}}</span>
             <ul v-show="menu.open" class="ef-node-menu-ul">
                 <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
-                    <li v-for="subMenu in menu.children" class="ef-node-menu-li" :key="subMenu.id" :type="subMenu.type">
-                        <i :class="subMenu.ico"></i> {{subMenu.id}} {{subMenu.description}}
+                    <li v-for="subMenu in menu.children" class="ef-node-menu-li" :key="subMenu.id" :type="subMenu.id">
+                        <i :class="subMenu.ico"></i> {{subMenu.id}}-{{subMenu.description}}
                     </li>
                 </draggable>
             </ul>
@@ -229,7 +229,7 @@
                 for (let i = 0; i < this.menuList.length; i++) {
                     let children = this.menuList[i].children;
                     for (let j = 0; j < children.length; j++) {
-                        if (children[j].type === type) {
+                        if (children[j].id === type) {
                             return children[j]
                         }
                     }
@@ -242,6 +242,14 @@
             },
             // 拖拽结束时触发
             end(evt, e) {
+                
+                console.log("---nodeMenu---")
+                console.log(this.nodeMenu);
+
+                console.log("---evt---")
+
+                console.log(evt);
+
                 this.$emit('addNode', evt, this.nodeMenu, mousePosition)
             },
             // 是否是火狐浏览器
