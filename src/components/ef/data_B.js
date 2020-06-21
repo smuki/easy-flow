@@ -3,7 +3,7 @@ var data_B = {
     activities: [
         {
             id: 'nodeA',
-            name: '流程B-节点A',
+            description: '流程B-节点A',
             type: 'task',
             left: '18',
             top: '223',
@@ -13,7 +13,7 @@ var data_B = {
         {
             id: 'nodeB',
             type: 'task',
-            name: '流程B-节点B',
+            description: '流程B-节点B',
             left: '351',
             top: '96',
             ico: 'el-icon-goods',
@@ -21,7 +21,7 @@ var data_B = {
         },
         {
             id: 'nodeC',
-            name: '流程B-节点C',
+            description: '流程B-节点C',
             type: 'task',
             left: '354',
             top: '351',
@@ -29,7 +29,7 @@ var data_B = {
             state: 'warning'
         }, {
             id: 'nodeD',
-            name: '流程B-节点D',
+            description: '流程B-节点D',
             type: 'task',
             left: '723',
             top: '215',

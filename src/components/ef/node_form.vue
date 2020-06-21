@@ -74,8 +74,10 @@
             savechanges() {
                 this.data.activities.filter((node) => {
                     if (node.id === this.node.id) {
-                                        console.log(this.node)
+                        console.log(this.node)
 
+                        node.description = this.node.description
+                        node.title = this.node.title
                         node.name = this.node.name
                         node.left = this.node.left
                         node.top = this.node.top

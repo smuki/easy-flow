@@ -340,14 +340,14 @@
                 top -= 16
                 var nodeId = this.getUUID()
                 // 动态生成名字
-                var origName = nodeMenu.name
+                var origName = nodeMenu.description
                 var nodeName = origName
                 var index = 1
                 while (index < 10000) {
                     var repeat = false
                     for (var i = 0; i < this.data.activities.length; i++) {
                         let node = this.data.activities[i]
-                        if (node.name === nodeName) {
+                        if (node.description === nodeName) {
                             nodeName = origName + index
                             repeat = true
                         }
@@ -360,10 +360,10 @@
                 }
                 var node = {
                     id: nodeId,
-                    name: nodeName,
+                    description: nodeName,
                     type: nodeMenu.type,
-                    left: left + 'px',
-                    top: top + 'px',
+                    left: left,
+                    top: top,
                     ico: nodeMenu.ico,
                     state: 'success'
                 }

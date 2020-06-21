@@ -3,7 +3,7 @@ var data_A = {
     activities: [
         {
             id: 'nodeA',
-            name: '流程A-节点A',
+            description: '流程A-节点A',
             type: 'task',
             left: '26',
             top: '161',
@@ -11,7 +11,7 @@ var data_A = {
         },
         {
             id: 'nodeB',
-            name: '流程A-节点B',
+            description: '流程A-节点B',
             type: 'task',
             left: '340',
             top: '161',
@@ -19,7 +19,7 @@ var data_A = {
         },
         {
             id: 'nodeC',
-            name: '流程A-节点C',
+            description: '流程A-节点C',
             type: 'task',
             left: '739',
             top: '161',

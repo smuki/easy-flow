@@ -16,10 +16,10 @@
         <!-- 节点名称 -->
         <div>
             <div class="ef-node-text" :show-overflow-tooltip="true">
-                {{node.name}}
+                {{node.title}}
             </div> 
             <div class="ef-node-text" :show-overflow-tooltip="true">
-                {{node.name}}
+                {{node.description}}
             </div>
         </div>
         <!-- 节点状态图标 -->

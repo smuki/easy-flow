@@ -5,7 +5,7 @@
             <ul v-show="menu.open" class="ef-node-menu-ul">
                 <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
                     <li v-for="subMenu in menu.children" class="ef-node-menu-li" :key="subMenu.id" :type="subMenu.type">
-                        <i :class="subMenu.ico"></i> {{subMenu.name}}
+                        <i :class="subMenu.ico"></i> {{subMenu.description}}
                     </li>
                 </draggable>
             </ul>
@@ -48,14 +48,14 @@
                             {
                                 id: '11',
                                 type: 'timer',
-                                name: '数据接入',
+                                description: '数据接入',
                                 ico: 'el-icon-time',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '12',
                                 type: 'task',
-                                name: '接口调用',
+                                description: '接口调用',
                                 ico: 'el-icon-odometer',
                                 // 自定义覆盖样式
                                 style: {}
@@ -72,14 +72,14 @@
                             {
                                 id: '21',
                                 type: 'end',
-                                name: '流程结束',
+                                description: '流程结束',
                                 ico: 'el-icon-caret-right',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '22',
                                 type: 'over',
-                                name: '数据清理',
+                                description: '数据清理',
                                 ico: 'el-icon-shopping-cart-full',
                                 // 自定义覆盖样式
                                 style: {}
