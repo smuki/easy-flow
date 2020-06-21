@@ -10,7 +10,7 @@
                         <el-input v-model="node.type" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label="名称">
-                        <el-input v-model="node.name"></el-input>
+                        <el-input v-model="node.description"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button icon="el-icon-close">重置</el-button>

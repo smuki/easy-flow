@@ -324,6 +324,9 @@
              * @param mousePosition 鼠标拖拽结束的坐标
              */
             addNode(evt, nodeMenu, mousePosition) {
+
+                console.log(nodeMenu)
+                
                 var screenX = evt.originalEvent.clientX, screenY = evt.originalEvent.clientY
                 let efContainer = this.$refs.efContainer
                 var containerRect = efContainer.getBoundingClientRect()
@@ -341,8 +344,9 @@
                 var nodeId = this.getUUID()
                 // 动态生成名字
                 var origName = nodeMenu.description
-                var nodeName = origName
-                var index = 1
+                //var nodeName = origName
+                //var index = 1
+                /*
                 while (index < 10000) {
                     var repeat = false
                     for (var i = 0; i < this.data.activities.length; i++) {
@@ -358,9 +362,11 @@
                     }
                     break
                 }
+                */
                 var node = {
                     id: nodeId,
-                    description: nodeName,
+                    name: nodeMenu.name,
+                    description: nodeMenu.description,
                     type: nodeMenu.type,
                     left: left,
                     top: top,

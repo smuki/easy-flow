@@ -5,7 +5,7 @@
             <ul v-show="menu.open" class="ef-node-menu-ul">
                 <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
                     <li v-for="subMenu in menu.children" class="ef-node-menu-li" :key="subMenu.id" :type="subMenu.type">
-                        <i :class="subMenu.ico"></i> {{subMenu.description}}
+                        <i :class="subMenu.ico"></i> {{subMenu.id}} {{subMenu.description}}
                     </li>
                 </draggable>
             </ul>
@@ -41,21 +41,21 @@
                     {
                         id: '1',
                         type: 'group',
-                        name: '开始节点',
+                        name: 'Console',
                         ico: 'el-icon-video-play',
                         open: true,
                         children: [
                             {
                                 id: '11',
-                                type: 'timer',
-                                description: '数据接入',
+                                type: 'WriteLine',
+                                description: 'ReadLine',
                                 ico: 'el-icon-time',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '12',
-                                type: 'task',
-                                description: '接口调用',
+                                type: 'WriteLine',
+                                description: 'WriteLine',
                                 ico: 'el-icon-odometer',
                                 // 自定义覆盖样式
                                 style: {}
@@ -63,24 +63,139 @@
                         ]
                     },
                     {
-                        id: '2',
+                        id: '3',
                         type: 'group',
-                        name: '结束节点',
+                        name: 'Control Flow',
+                        ico: 'el-icon-video-play',
+                        open: true,
+                        children: [
+                            {
+                                id: '31',
+                                type: 'timer',
+                                description: 'Foreach',
+                                ico: 'el-icon-time',
+                                // 自定义覆盖样式
+                                style: {}
+                            }, {
+                                id: '32',
+                                type: 'task',
+                                description: 'If/Else',
+                                ico: 'el-icon-odometer',
+                                // 自定义覆盖样式
+                                style: {}
+                            },{
+                                id: '33',
+                                type: 'task',
+                                description: 'Switch',
+                                ico: 'el-icon-odometer',
+                                // 自定义覆盖样式
+                                style: {}
+                            },{
+                                id: '34',
+                                type: 'task',
+                                description: 'Fork',
+                                ico: 'el-icon-odometer',
+                                // 自定义覆盖样式
+                                style: {}
+                            },{
+                                id: '35',
+                                type: 'task',
+                                description: 'Join',
+                                ico: 'el-icon-odometer',
+                                // 自定义覆盖样式
+                                style: {}
+                            },{
+                                id: '36',
+                                type: 'task',
+                                description: 'While',
+                                ico: 'el-icon-odometer',
+                                // 自定义覆盖样式
+                                style: {}
+                            }
+                        ]
+                    },    
+                    
+                    {
+                        id: '4',
+                        type: 'group',
+                        name: 'Workflows',
                         ico: 'el-icon-video-pause',
                         open: true,
                         children: [
                             {
-                                id: '21',
+                                id: '41',
                                 type: 'end',
-                                description: '流程结束',
+                                description: 'Correlate',
                                 ico: 'el-icon-caret-right',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
-                                id: '22',
+                                id: '42',
                                 type: 'over',
-                                description: '数据清理',
+                                description: 'Signaled',
                                 ico: 'el-icon-shopping-cart-full',
+                                // 自定义覆盖样式
+                                style: {}
+                            }, {
+                                id: '43',
+                                type: 'over',
+                                description: 'Trigger Signal',
+                                ico: 'el-icon-shopping-cart-full',
+                                // 自定义覆盖样式
+                                style: {}
+                            }, {
+                                id: '44',
+                                type: 'over',
+                                description: 'Finish',
+                                ico: 'el-icon-shopping-cart-full',
+                                // 自定义覆盖样式
+                                style: {}
+                            }, {
+                                id: '45',
+                                type: 'over',
+                                description: 'Start',
+                                ico: 'el-icon-shopping-cart-full',
+                                // 自定义覆盖样式
+                                style: {}
+                            }, {
+                                id: '46',
+                                type: 'over',
+                                description: 'Trigger Workflow',
+                                ico: 'el-icon-shopping-cart-full',
+                                // 自定义覆盖样式
+                                style: {}
+                            }
+                        ]
+                    },
+                    {
+                        id: '5',
+                        type: 'group',
+                        name: 'Primitives',
+                        ico: 'el-icon-video-pause',
+                        open: true,
+                        children: [
+                            {
+                                id: '51',
+                                type: 'end',
+                                description: 'Set Variable',
+                                ico: 'el-icon-caret-right',
+                                // 自定义覆盖样式
+                                style: {}
+                            }
+                        ]
+                    },
+                    {
+                        id: '6',
+                        type: 'group',
+                        name: 'User Task',
+                        ico: 'el-icon-video-pause',
+                        open: true,
+                        children: [
+                            {
+                                id: '61',
+                                type: 'end',
+                                description: 'User Task',
+                                ico: 'el-icon-caret-right',
                                 // 自定义覆盖样式
                                 style: {}
                             }
