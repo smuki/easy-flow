@@ -342,27 +342,7 @@
                 left -= 85
                 top -= 16
                 var nodeId = this.getUUID()
-                // 动态生成名字
-                var origName = nodeMenu.description
-                //var nodeName = origName
-                //var index = 1
-                /*
-                while (index < 10000) {
-                    var repeat = false
-                    for (var i = 0; i < this.data.activities.length; i++) {
-                        let node = this.data.activities[i]
-                        if (node.description === nodeName) {
-                            nodeName = origName + index
-                            repeat = true
-                        }
-                    }
-                    if (repeat) {
-                        index++
-                        continue
-                    }
-                    break
-                }
-                */
+               
                 var node = {
                     id: nodeId,
                     name: nodeMenu.name,

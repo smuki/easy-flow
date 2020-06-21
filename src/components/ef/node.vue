@@ -16,7 +16,7 @@
         <!-- 节点名称 -->
         <div>
             <div class="ef-node-text" :show-overflow-tooltip="true">
-                {{node.title}}
+                {{node.title?node.title:node.type}}
             </div> 
             <div class="ef-node-text" :show-overflow-tooltip="true">
                 {{node.description}}

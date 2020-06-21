@@ -118,12 +118,12 @@
     font-size: 12px;
     line-height: 32px;
     margin-left: 8px;
-    width: 100px;
+    width: 180px;
     /* 设置超出宽度文本显示方式*/
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center;
+    /*text-align: center;*/
 }
 
 /*节点右侧的图标*/

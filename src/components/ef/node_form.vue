@@ -81,6 +81,7 @@
                         node.name = this.node.name
                         node.left = this.node.left
                         node.top = this.node.top
+
                         this.$emit('repaintEverything')
                     }
                 })
