@@ -2,7 +2,7 @@
     <div>
         <div class="ef-node-form">
             <div class="ef-node-form-header">
-                编辑
+                属性
             </div>
             <div class="ef-node-form-body">
                 <el-form :model="node" ref="dataForm" label-width="80px" v-show="type === 'node'">
@@ -12,18 +12,9 @@
                     <el-form-item label="名称">
                         <el-input v-model="node.name"></el-input>
                     </el-form-item>
-                    <el-form-item label="left坐标">
-                        <el-input v-model="node.left"></el-input>
-                    </el-form-item>
-                    <el-form-item label="top坐标">
-                        <el-input v-model="node.top"></el-input>
-                    </el-form-item>
-                    <el-form-item label="ico图标">
-                        <el-input v-model="node.ico"></el-input>
-                    </el-form-item>
                     <el-form-item>
                         <el-button icon="el-icon-close">重置</el-button>
-                        <el-button type="primary" icon="el-icon-check" @click="save">保存</el-button>
+                        <el-button type="primary" icon="el-icon-check" @click="savechanges">保存</el-button>
                     </el-form-item>
                 </el-form>
 
@@ -80,9 +71,11 @@
             saveLine() {
                 this.$emit('setLineLabel', this.line.sourceActivityId, this.line.destinationActivityId, this.line.outcome)
             },
-            save() {
+            savechanges() {
                 this.data.activities.filter((node) => {
                     if (node.id === this.node.id) {
+                                        console.log(this.node)
+
                         node.name = this.node.name
                         node.left = this.node.left
                         node.top = this.node.top
