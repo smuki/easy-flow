@@ -71,8 +71,8 @@
     min-height: 80px;
     max-width:320px;    
     border: 1px solid #cccccc;
-    box-shadow: 2px 2px 19px #aaa;
-    border-radius: 0.5em;
+    box-shadow: 2px 2px 8px #aaa;
+    border-radius: 0.2em;
     opacity: 0.8;
     background-color: #f1f1f1;   
 }
@@ -96,7 +96,7 @@
 
 /*节点左侧的竖线*/
 .ef-node-left {
-    width: 4px;
+    width: 18px;
     background-color: #1879FF;
     border-radius: 4px 0 0 4px;
 }
