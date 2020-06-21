@@ -7,14 +7,20 @@
             :class="nodeContainerClass"
     >
         <!-- 最左侧的那条竖线 -->
-        <div class="ef-node-left"></div>
+        <div class="ef-node-left">
         <!-- 节点类型的图标 -->
         <div class="ef-node-left-ico flow-node-drag">
             <i :class="nodeIcoClass"></i>
         </div>
+        </div>
         <!-- 节点名称 -->
-        <div class="ef-node-text" :show-overflow-tooltip="true">
-            {{node.name}}
+        <div>
+            <div class="ef-node-text" :show-overflow-tooltip="true">
+                {{node.name}}
+            </div> 
+            <div class="ef-node-text" :show-overflow-tooltip="true">
+                {{node.name}}
+            </div>
         </div>
         <!-- 节点状态图标 -->
         <div class="ef-node-right-ico">
