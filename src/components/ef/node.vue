@@ -46,8 +46,8 @@
             // 节点容器样式
             nodeContainerStyle() {
                 return {
-                    top: this.node.top,
-                    left: this.node.left
+                    top: this.node.top+'px',
+                    left: this.node.left+'px'
                 }
             },
             nodeIcoClass() {

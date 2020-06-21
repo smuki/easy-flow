@@ -5,24 +5,24 @@ var dataC = {
             id: 'nodeA',
             name: '流程C-节点A',
             type: 'task',
-            left: '400px',
-            top: '15px',
+            left: '400',
+            top: '15',
             ico: 'el-icon-user-solid'
         },
         {
             id: 'nodeB',
             name: '流程C-节点B',
             type: 'task',
-            left: '400px',
-            top: '200px',
+            left: '400',
+            top: '200',
             ico: 'el-icon-goods'
         },
         {
             id: 'nodeC',
             name: '流程C-节点C',
             type: 'task',
-            left: '400px',
-            top: '378px',
+            left: '400',
+            top: '378',
             ico: 'el-icon-present'
         }
     ],

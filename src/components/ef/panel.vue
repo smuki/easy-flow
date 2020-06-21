@@ -15,10 +15,11 @@
 <!--                    <el-button type="text" icon="el-icon-minus" size="large" @click="zoomSub"></el-button>-->
                     <div style="float: right;margin-right: 5px">
                         <el-button plain round icon="el-icon-document" @click="dataInfo" size="mini">流程信息</el-button>
-                        <el-button plain round @click="dataReloadA" icon="el-icon-refresh" size="mini">切换流程A</el-button>
-                        <el-button plain round @click="dataReloadB" icon="el-icon-refresh" size="mini">切换流程B</el-button>
-                        <el-button plain round @click="dataReloadC" icon="el-icon-refresh" size="mini">切换流程C</el-button>
+                        <el-button plain round @click="dataReloadA" icon="el-icon-refresh" size="mini">流程A</el-button>
+                        <el-button plain round @click="dataReloadB" icon="el-icon-refresh" size="mini">流程B</el-button>
+                        <el-button plain round @click="dataReloadC" icon="el-icon-refresh" size="mini">流程C</el-button>
                         <el-button plain round @click="dataReloadD" icon="el-icon-refresh" size="mini">自定义样式</el-button>
+                        <el-button plain round @click="dataReloadE" icon="el-icon-refresh" size="mini">流程E</el-button>
                     </div>
                 </div>
             </el-col>
@@ -69,6 +70,7 @@
     import { getDataB } from './data_B'
     import { getDataC } from './data_C'
     import { getDataD } from './data_D'
+    import { getDataE } from './data_E'
 
     export default {
         data() {
@@ -474,6 +476,9 @@
             // 模拟载入数据dataD
             dataReloadD() {
                 this.dataReload(getDataD())
+            },
+            dataReloadE() {
+                this.dataReload(getDataE())
             },
             zoomAdd() {
                 if (this.zoom >= 1) {

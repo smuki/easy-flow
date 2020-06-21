@@ -5,8 +5,8 @@ var data_D = {
             id: 'nodeA',
             name: '流程D-节点A',
             type: 'task',
-            left: '18px',
-            top: '223px',
+            left: '18',
+            top: '223',
             ico: 'el-icon-user-solid',
             state: 'success'
         },
@@ -14,8 +14,8 @@ var data_D = {
             id: 'nodeB',
             type: 'task',
             name: '流程D-节点B',
-            left: '351px',
-            top: '96px',
+            left: '351',
+            top: '96',
             ico: 'el-icon-goods',
             state: 'error'
         },
@@ -23,16 +23,16 @@ var data_D = {
             id: 'nodeC',
             name: '流程D-节点C',
             type: 'task',
-            left: '354px',
-            top: '351px',
+            left: '354',
+            top: '351',
             ico: 'el-icon-present',
             state: 'warning'
         }, {
             id: 'nodeD',
             name: '流程D-节点D',
             type: 'task',
-            left: '723px',
-            top: '215px',
+            left: '723',
+            top: '215',
             ico: 'el-icon-present',
             state: 'running'
         }
