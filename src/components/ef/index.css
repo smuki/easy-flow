@@ -20,7 +20,9 @@
     color: #4A4A4A;
 }
 
-
+.flow-menu{
+    overflow: auto;
+}
 /*节点菜单*/
 .ef-node-pmenu {
     cursor: pointer;

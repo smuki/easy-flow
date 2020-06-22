@@ -1,6 +1,6 @@
 <template>
     <div class="flow-menu" ref="tool">
-        <div v-for="menu  in  menuList" :key="menu.id">
+        <div v-for="menu  in  menuList" :key="menu.id" >
             <span class="ef-node-pmenu" @click="menu.open = !menu.open"><i :class="{'el-icon-caret-bottom': menu.open,'el-icon-caret-right': !menu.open}"></i>&nbsp;{{menu.name}}</span>
             <ul v-show="menu.open" class="ef-node-menu-ul">
                 <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
@@ -47,7 +47,7 @@
                         children: [
                             {
                                 id: '11',
-                                type: 'WriteLine',
+                                type: 'ReadLine',
                                 description: 'ReadLine',
                                 ico: 'el-icon-time',
                                 // 自定义覆盖样式
@@ -71,42 +71,42 @@
                         children: [
                             {
                                 id: '31',
-                                type: 'timer',
+                                type: 'ForEach',
                                 description: 'Foreach',
                                 ico: 'el-icon-time',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '32',
-                                type: 'task',
+                                type: 'IfElse',
                                 description: 'If/Else',
                                 ico: 'el-icon-odometer',
                                 // 自定义覆盖样式
                                 style: {}
                             },{
                                 id: '33',
-                                type: 'task',
+                                type: 'Switch',
                                 description: 'Switch',
                                 ico: 'el-icon-odometer',
                                 // 自定义覆盖样式
                                 style: {}
                             },{
                                 id: '34',
-                                type: 'task',
+                                type: 'Fork',
                                 description: 'Fork',
                                 ico: 'el-icon-odometer',
                                 // 自定义覆盖样式
                                 style: {}
                             },{
                                 id: '35',
-                                type: 'task',
+                                type: 'Join',
                                 description: 'Join',
                                 ico: 'el-icon-odometer',
                                 // 自定义覆盖样式
                                 style: {}
                             },{
                                 id: '36',
-                                type: 'task',
+                                type: 'While',
                                 description: 'While',
                                 ico: 'el-icon-odometer',
                                 // 自定义覆盖样式
@@ -124,35 +124,35 @@
                         children: [
                             {
                                 id: '41',
-                                type: 'end',
+                                type: 'Correlate',
                                 description: 'Correlate',
                                 ico: 'el-icon-caret-right',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '42',
-                                type: 'over',
+                                type: 'Signaled',
                                 description: 'Signaled',
                                 ico: 'el-icon-shopping-cart-full',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '43',
-                                type: 'over',
+                                type: 'TriggerSignal',
                                 description: 'Trigger Signal',
                                 ico: 'el-icon-shopping-cart-full',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '44',
-                                type: 'over',
+                                type: 'Complete',
                                 description: 'Finish',
                                 ico: 'el-icon-shopping-cart-full',
                                 // 自定义覆盖样式
                                 style: {}
                             }, {
                                 id: '45',
-                                type: 'over',
+                                type: 'Start',
                                 description: 'Start',
                                 ico: 'el-icon-shopping-cart-full',
                                 // 自定义覆盖样式
@@ -176,7 +176,7 @@
                         children: [
                             {
                                 id: '51',
-                                type: 'end',
+                                type: 'SetVariable',
                                 description: 'Set Variable',
                                 ico: 'el-icon-caret-right',
                                 // 自定义覆盖样式

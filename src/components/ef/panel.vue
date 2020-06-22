@@ -1,5 +1,5 @@
 <template>
-    <div v-if="easyFlowVisible" style="height: calc(100vh);">
+    <div v-if="easyFlowVisible" style="height:calc(100vh);">
         <el-row>
             <!--顶部工具菜单-->
             <el-col :span="24">
@@ -25,7 +25,7 @@
             </el-col>
         </el-row>
         <div style="display: flex;height: calc(100% - 47px);">
-            <div style="width: 230px;border-right: 1px solid #dce3e8;">
+            <div style="width:230px;border-right: 1px solid #dce3e8;">
                 <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
             </div>
             <div id="efContainer" ref="efContainer" class="container" v-flowDrag>
@@ -141,7 +141,18 @@
             }
         },
         mounted() {
-            this.jsPlumb = jsPlumb.getInstance()
+            this.jsPlumb = jsPlumb.getInstance({
+              PaintStyle:{
+                strokeWidth:6,
+                stroke:"#567567",
+                outlineStroke:"black",
+                outlineWidth:1
+              },
+              Connector:[ "Bezier", { curviness: 30 } ],
+              Endpoint:[ "Dot", { radius:5 } ],
+              EndpointStyle : { fill: "#567567"  },
+              Anchor : [ 0.5, 0.5, 1, 1 ]
+            });
             this.$nextTick(() => {
                 // 默认加载流程A的数据、在这里可以根据具体的业务返回符合流程数据格式的数据即可
                 this.dataReload(getDataB())

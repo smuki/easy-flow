@@ -9,9 +9,15 @@
                     <el-form-item label="类型">
                         <el-input v-model="node.type" :disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="名称">
-                        <el-input v-model="node.description"></el-input>
+                    <el-form-item label="标题">
+                        <el-input v-model="node.title"></el-input>
                     </el-form-item>
+                    <el-form-item label="描述">
+                        <el-input v-model="node.description"></el-input>
+                    </el-form-item>    
+                    <el-form-item label="名称">
+                        <el-input v-model="node.name"></el-input>
+                    </el-form-item>    
                     <el-form-item>
                         <el-button icon="el-icon-close">重置</el-button>
                         <el-button type="primary" icon="el-icon-check" @click="savechanges">保存</el-button>
