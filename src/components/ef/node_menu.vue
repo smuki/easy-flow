@@ -23,9 +23,7 @@
             :key="subMenu.id"
             :type="subMenu.id"
           >
-            <i :class="subMenu.ico"></i> {{ subMenu.id }}-{{
-              subMenu.description
-            }}
+            <i :class="subMenu.ico"></i>{{ subMenu.description }}
           </li>
         </draggable>
       </ul>
