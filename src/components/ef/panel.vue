@@ -1,8 +1,8 @@
 <template>
     <div v-if="easyFlowVisible" style="height:calc(100vh);">
-        <el-row>
+        <a-row>
             <!--顶部工具菜单-->
-            <el-col :span="24">
+            <a-col :span="24">
                 <div class="ef-tooltar">
                     <el-link type="primary" :underline="false">{{data.name}}</el-link>
                     <el-divider direction="vertical"></el-divider>
@@ -22,8 +22,8 @@
                         <el-button plain round @click="dataReloadE" icon="el-icon-refresh" size="mini">流程E</el-button>
                     </div>
                 </div>
-            </el-col>
-        </el-row>
+            </a-col>
+        </a-row>
         <div style="display: flex;height: calc(100% - 47px);">
             <div style="width:230px;border-right: 1px solid #dce3e8;">
                 <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
