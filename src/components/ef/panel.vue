@@ -79,39 +79,27 @@
                 minHeight: '280px'
               }"
             >
-              <div style="display: flex;height: calc(100% - 10px);">
-                <div
-                  id="efContainer"
-                  ref="efContainer"
-                  class="container"
-                  v-flowDrag
-                >
-                  <template v-for="node in data.activities">
-                    <flow-node
-                      :id="node.id"
-                      :key="node.id"
-                      :node="node"
-                      :activeElement="activeElement"
-                      @changeNodeSite="changeNodeSite"
-                      @nodeRightMenu="nodeRightMenu"
-                      @clickNode="clickNode"
-                    ></flow-node>
-                  </template>
-                  <!-- 给画布一个默认的宽度和高度 -->
-                  <div style="position:absolute;top: 2000px;left: 2000px;">
-                    &nbsp;
-                  </div>
-                </div>
-
-                <!-- 右侧表单 -->
-                <div
-                  style="width: 300px;border-left: 1px solid #dce3e8;background-color: #FBFBFB"
-                >
-                  <flow-node-form
-                    ref="nodeForm"
-                    @setLineLabel="setLineLabel"
-                    @repaintEverything="repaintEverything"
-                  ></flow-node-form>
+              <div
+                style="display: flex;height: calc(100% - 10px);"
+                id="efContainer"
+                ref="efContainer"
+                class="container"
+                v-flowDrag
+              >
+                <template v-for="node in data.activities">
+                  <flow-node
+                    :id="node.id"
+                    :key="node.id"
+                    :node="node"
+                    :activeElement="activeElement"
+                    @changeNodeSite="changeNodeSite"
+                    @nodeRightMenu="nodeRightMenu"
+                    @clickNode="clickNode"
+                  ></flow-node>
+                </template>
+                <!-- 给画布一个默认的宽度和高度 -->
+                <div style="position:absolute;top: 2000px;left: 2000px;">
+                  &nbsp;
                 </div>
               </div>
             </a-layout-content>
@@ -121,6 +109,13 @@
                 background: '#fff'
               }"
             >
+              <!-- 右侧表单 -->
+              <flow-node-form
+                ref="nodeForm"
+                @setLineLabel="setLineLabel"
+                @repaintEverything="repaintEverything"
+              ></flow-node-form>
+
               <!-- 流程数据详情 -->
               <flow-info
                 v-if="flowInfoVisible"
