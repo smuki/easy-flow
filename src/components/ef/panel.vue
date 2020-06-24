@@ -51,49 +51,86 @@
     </a-layout-header>
     <a-layout-content
       :style="{
-        margin: '4px 4px',
-        padding: '4px',
-        background: '#fff',
-        minHeight: '280px'
+        background: '#c0c0c0'
       }"
     >
-      <a-row>
-        <div style="display: flex;height: calc(100% - 47px);">
-          <div style="width:230px;border-right: 1px solid #dce3e8;">
-            <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
-          </div>
-          <div id="efContainer" ref="efContainer" class="container" v-flowDrag>
-            <template v-for="node in data.activities">
-              <flow-node
-                :id="node.id"
-                :key="node.id"
-                :node="node"
-                :activeElement="activeElement"
-                @changeNodeSite="changeNodeSite"
-                @nodeRightMenu="nodeRightMenu"
-                @clickNode="clickNode"
-              ></flow-node>
-            </template>
-            <!-- 给画布一个默认的宽度和高度 -->
-            <div style="position:absolute;top: 2000px;left: 2000px;">
-              &nbsp;
-            </div>
-          </div>
-          <!-- 右侧表单 -->
-          <div
-            style="width: 300px;border-left: 1px solid #dce3e8;background-color: #FBFBFB"
-          >
-            <flow-node-form
-              ref="nodeForm"
-              @setLineLabel="setLineLabel"
-              @repaintEverything="repaintEverything"
-            ></flow-node-form>
-          </div>
-        </div>
-      </a-row>
+      <a-layout>
+        <a-layout-sider
+          :style="{
+            background: '#fff'
+          }"
+        >
+          <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
+        </a-layout-sider>
+        <a-layout-content
+          :style="{
+            margin: '4px 4px',
+            padding: '4px',
+            background: '#fff',
+            minHeight: '280px'
+          }"
+        >
+          <a-layout>
+            <a-layout-content
+              :style="{
+                margin: '4px 4px',
+                padding: '4px',
+                background: '#fff',
+                minHeight: '280px'
+              }"
+            >
+              <div style="display: flex;height: calc(100% - 10px);">
+                <div
+                  id="efContainer"
+                  ref="efContainer"
+                  class="container"
+                  v-flowDrag
+                >
+                  <template v-for="node in data.activities">
+                    <flow-node
+                      :id="node.id"
+                      :key="node.id"
+                      :node="node"
+                      :activeElement="activeElement"
+                      @changeNodeSite="changeNodeSite"
+                      @nodeRightMenu="nodeRightMenu"
+                      @clickNode="clickNode"
+                    ></flow-node>
+                  </template>
+                  <!-- 给画布一个默认的宽度和高度 -->
+                  <div style="position:absolute;top: 2000px;left: 2000px;">
+                    &nbsp;
+                  </div>
+                </div>
 
-      <!-- 流程数据详情 -->
-      <flow-info v-if="flowInfoVisible" ref="flowInfo" :data="data"></flow-info>
+                <!-- 右侧表单 -->
+                <div
+                  style="width: 300px;border-left: 1px solid #dce3e8;background-color: #FBFBFB"
+                >
+                  <flow-node-form
+                    ref="nodeForm"
+                    @setLineLabel="setLineLabel"
+                    @repaintEverything="repaintEverything"
+                  ></flow-node-form>
+                </div>
+              </div>
+            </a-layout-content>
+            <a-layout-sider
+              :reverseArrow="true"
+              :style="{
+                background: '#fff'
+              }"
+            >
+              <!-- 流程数据详情 -->
+              <flow-info
+                v-if="flowInfoVisible"
+                ref="flowInfo"
+                :data="data"
+              ></flow-info>
+            </a-layout-sider>
+          </a-layout>
+        </a-layout-content>
+      </a-layout>
     </a-layout-content>
   </a-layout>
 </template>
