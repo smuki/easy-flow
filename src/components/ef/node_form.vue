@@ -1,52 +1,36 @@
 <template>
   <div>
     <div class="ef-node-form">
-      <div class="ef-node-form-header">
-        属性
-      </div>
+      <div class="ef-node-form-header">属性</div>
       <div class="ef-node-form-body">
-        <el-form
-          :model="node"
-          ref="dataForm"
-          label-width="80px"
-          v-show="type === 'node'"
-        >
-          <el-form-item label="类型">
-            <el-input v-model="node.type" :disabled="true"></el-input>
-          </el-form-item>
-          <el-form-item label="标题">
-            <el-input v-model="node.title"></el-input>
-          </el-form-item>
-          <el-form-item label="描述">
-            <el-input v-model="node.description"></el-input>
-          </el-form-item>
-          <el-form-item label="名称">
-            <el-input v-model="node.name"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button icon="el-icon-close">重置</el-button>
-            <el-button type="primary" icon="el-icon-check" @click="savechanges"
-              >保存</el-button
-            >
-          </el-form-item>
-        </el-form>
+        <a-form :model="node" ref="dataForm" label-width="80px" v-show="type === 'node'">
+          <a-form-item label="类型">
+            <a-input v-model="node.type" :disabled="true"></a-input>
+          </a-form-item>
+          <a-form-item label="标题">
+            <a-input v-model="node.title"></a-input>
+          </a-form-item>
+          <a-form-item label="描述">
+            <a-input v-model="node.description"></a-input>
+          </a-form-item>
+          <a-form-item label="名称">
+            <a-input v-model="node.name"></a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-button icon="el-icon-close">重置</a-button>
+            <a-button type="primary" icon="el-icon-check" @click="savechanges">保存</a-button>
+          </a-form-item>
+        </a-form>
 
-        <el-form
-          :model="line"
-          ref="dataForm"
-          label-width="80px"
-          v-show="type === 'line'"
-        >
-          <el-form-item label="条件">
-            <el-input v-model="line.outcome"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button icon="el-icon-close">重置</el-button>
-            <el-button type="primary" icon="el-icon-check" @click="saveLine"
-              >保存</el-button
-            >
-          </el-form-item>
-        </el-form>
+        <a-form :model="line" ref="dataForm" label-width="80px" v-show="type === 'line'">
+          <a-form-item label="条件">
+            <a-input v-model="line.outcome"></a-input>
+          </a-form-item>
+          <a-form-item>
+            <a-button icon="el-icon-close">重置</a-button>
+            <a-button type="primary" icon="el-icon-check" @click="saveLine">保存</a-button>
+          </a-form-item>
+        </a-form>
       </div>
       <!--            <div class="el-node-form-tag"></div>-->
     </div>
@@ -54,18 +38,18 @@
 </template>
 
 <script>
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from "lodash";
 
 export default {
   data() {
     return {
       visible: true,
       // node 或 line
-      type: 'node',
+      type: "node",
       node: {},
       line: {},
       data: {}
-    }
+    };
   },
   methods: {
     /**
@@ -74,39 +58,44 @@ export default {
      * @param id
      */
     nodeInit(data, id) {
-      this.type = 'node'
-      this.data = data
-      data.activities.filter((node) => {
+      this.type = "node";
+      this.data = data;
+      data.activities.filter(node => {
         if (node.id === id) {
-          this.node = cloneDeep(node)
+          this.node = cloneDeep(node);
         }
-      })
+      });
     },
     lineInit(line) {
-      this.type = 'line'
-      this.line = line
+      this.type = "line";
+      this.line = line;
     },
     // 修改连线
     saveLine() {
-      this.$emit('setLineLabel', this.line.sourceActivityId, this.line.destinationActivityId, this.line.outcome)
+      this.$emit(
+        "setLineLabel",
+        this.line.sourceActivityId,
+        this.line.destinationActivityId,
+        this.line.outcome
+      );
     },
     savechanges() {
-      this.data.activities.filter((node) => {
+      this.data.activities.filter(node => {
         if (node.id === this.node.id) {
-          console.log(this.node)
+          console.log(this.node);
 
-          node.description = this.node.description
-          node.title = this.node.title
-          node.name = this.node.name
-          node.left = this.node.left
-          node.top = this.node.top
+          node.description = this.node.description;
+          node.title = this.node.title;
+          node.name = this.node.name;
+          node.left = this.node.left;
+          node.top = this.node.top;
 
-          this.$emit('repaintEverything')
+          this.$emit("repaintEverything");
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style>
