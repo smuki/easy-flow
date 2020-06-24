@@ -1,39 +1,37 @@
 <template>
-  <div>
-    <div class="ef-node-form">
-      <div class="ef-node-form-header">属性</div>
-      <div class="ef-node-form-body">
-        <a-form :model="node" ref="dataForm" label-width="80px" v-show="type === 'node'">
-          <a-form-item label="类型">
-            <a-input v-model="node.type" :disabled="true"></a-input>
-          </a-form-item>
-          <a-form-item label="标题">
-            <a-input v-model="node.title"></a-input>
-          </a-form-item>
-          <a-form-item label="描述">
-            <a-input v-model="node.description"></a-input>
-          </a-form-item>
-          <a-form-item label="名称">
-            <a-input v-model="node.name"></a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-button icon="el-icon-close">重置</a-button>
-            <a-button type="primary" icon="el-icon-check" @click="savechanges">保存</a-button>
-          </a-form-item>
-        </a-form>
+  <div class="ef-node-form">
+    <div class="ef-node-form-header">属性</div>
+    <div class="ef-node-form-body">
+      <a-form :model="node" ref="dataForm" label-width="80px" v-show="type === 'node'">
+        <a-form-item label="类型">
+          <a-input v-model="node.type" :disabled="true"></a-input>
+        </a-form-item>
+        <a-form-item label="标题">
+          <a-input v-model="node.title"></a-input>
+        </a-form-item>
+        <a-form-item label="描述">
+          <a-input v-model="node.description"></a-input>
+        </a-form-item>
+        <a-form-item label="名称">
+          <a-input v-model="node.name"></a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-button icon="close">重置</a-button>
+          <a-button type="primary" icon="check" @click="savechanges">保存</a-button>
+        </a-form-item>
+      </a-form>
 
-        <a-form :model="line" ref="dataForm" label-width="80px" v-show="type === 'line'">
-          <a-form-item label="条件">
-            <a-input v-model="line.outcome"></a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-button icon="el-icon-close">重置</a-button>
-            <a-button type="primary" icon="el-icon-check" @click="saveLine">保存</a-button>
-          </a-form-item>
-        </a-form>
-      </div>
-      <!--            <div class="el-node-form-tag"></div>-->
+      <a-form :model="line" ref="dataForm" label-width="80px" v-show="type === 'line'">
+        <a-form-item label="条件">
+          <a-input v-model="line.outcome"></a-input>
+        </a-form-item>
+        <a-form-item>
+          <a-button icon="el-icon-close">重置</a-button>
+          <a-button type="primary" icon="el-icon-check" @click="saveLine">保存</a-button>
+        </a-form-item>
+      </a-form>
     </div>
+    <!--            <div class="el-node-form-tag"></div>-->
   </div>
 </template>
 

@@ -1,45 +1,39 @@
 <template>
-    <el-dialog
-            title="流程数据信息"
-            :visible.sync="dialogVisible"
-            width="70%"
-    >
-        <!--一个高亮显示的插件-->
-        <codemirror
-                :value="flowJsonData"
-                :options="options"
-                class="code"
-        ></codemirror>
-    </el-dialog>
+  <a-modal
+    title="流程数据信息"
+    :visible.sync="dialogVisible"
+    width="70%"
+    style="max-height:500px,overflow:auto;"
+  >
+    {{ flowJsonData }}
+    <template slot="footer">
+      <a-button key="back" @click="dialogVisible = false">
+        Close
+      </a-button>
+    </template>
+  </a-modal>
 </template>
 
 <script>
-    import 'codemirror/lib/codemirror.css'
-    import { codemirror } from 'vue-codemirror'
-    require("codemirror/mode/javascript/javascript.js")
-
-    export default {
-        props: {
-            data: Object,
-        },
-        data() {
-            return {
-                dialogVisible: false,
-                flowJsonData: {},
-                options: {
-                    mode: {name: "javascript", json: true},
-                    lineNumbers: true
-                }
-            }
-        },
-        components: {
-            codemirror
-        },
-        methods: {
-            init() {
-                this.dialogVisible = true
-                this.flowJsonData = JSON.stringify(this.data, null, 4).toString()
-            }
-        }
+export default {
+  props: {
+    data: Object
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      flowJsonData: {},
+      options: {
+        mode: { name: "javascript", json: true },
+        lineNumbers: true
+      }
+    };
+  },
+  methods: {
+    init() {
+      this.dialogVisible = true;
+      this.flowJsonData = JSON.stringify(this.data, null, 4).toString();
     }
+  }
+};
 </script>

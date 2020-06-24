@@ -1,68 +1,101 @@
 <template>
-  <div v-if="easyFlowVisible" style="height:calc(100vh);">
-    <a-row>
-      <!--顶部工具菜单-->
-      <a-col :span="14">
-        <div class="ef-tooltar">
-          <a-button type="primary" :underline="false">{{ data.name }}</a-button>
-          <a-divider type="vertical"></a-divider>
-          <a-button
-            type="primary"
-            icon="delete"
-            @click="deleteElement"
-            :disabled="!this.activeElement.type"
-          ></a-button>
-          <a-divider type="vertical"></a-divider>
-          <a-button type="primary" icon="download" @click="downloadData"></a-button>
-          <!--                    <el-divider direction="vertical"></el-divider>-->
-          <!--                    <el-button type="text" icon="el-icon-plus" size="large" @click="zoomAdd"></el-button>-->
-          <!--                    <el-divider direction="vertical"></el-divider>-->
-          <!--                    <el-button type="text" icon="el-icon-minus" size="large" @click="zoomSub"></el-button>-->
-          <div style="float:right;margin-right:5px">
-            <a-button icon="el-icon-document" @click="dataInfo">流程信息</a-button>
-            <a-button @click="dataReloadA" icon="el-icon-refresh">流程A</a-button>
-            <a-button @click="dataReloadB" icon="el-icon-refresh">流程B</a-button>
-            <a-button @click="dataReloadC" icon="el-icon-refresh">流程C</a-button>
-            <a-button @click="dataReloadD" icon="el-icon-refresh">自定义样式</a-button>
-            <a-button @click="dataReloadE" icon="el-icon-refresh">流程E</a-button>
+  <a-layout>
+    <a-layout-header style="background: #fff; padding: 0">
+      <a-row>
+        <!--顶部工具菜单-->
+        <a-col :span="24">
+          <div class="ef-tooltar">
+            <a-button type="primary" :underline="false">{{
+              data.name
+            }}</a-button>
+            <a-divider type="vertical"></a-divider>
+            <a-button
+              type="primary"
+              icon="delete"
+              @click="deleteElement"
+              :disabled="!this.activeElement.type"
+            ></a-button>
+            <a-divider type="vertical"></a-divider>
+            <a-button
+              type="primary"
+              icon="download"
+              @click="downloadData"
+            ></a-button>
+            <!--                    <el-divider direction="vertical"></el-divider>-->
+            <!--                    <el-button type="text" icon="el-icon-plus" size="large" @click="zoomAdd"></el-button>-->
+            <!--                    <el-divider direction="vertical"></el-divider>-->
+            <!--                    <el-button type="text" icon="el-icon-minus" size="large" @click="zoomSub"></el-button>-->
+            <div style="float:right;margin-right:5px">
+              <a-button icon="el-icon-document" @click="dataInfo"
+                >流程信息</a-button
+              >
+              <a-button @click="dataReloadA" icon="el-icon-refresh"
+                >流程A</a-button
+              >
+              <a-button @click="dataReloadB" icon="el-icon-refresh"
+                >流程B</a-button
+              >
+              <a-button @click="dataReloadC" icon="el-icon-refresh"
+                >流程C</a-button
+              >
+              <a-button @click="dataReloadD" icon="el-icon-refresh"
+                >自定义样式</a-button
+              >
+              <a-button @click="dataReloadE" icon="el-icon-refresh"
+                >流程E</a-button
+              >
+            </div>
+          </div>
+        </a-col>
+      </a-row>
+    </a-layout-header>
+    <a-layout-content
+      :style="{
+        margin: '4px 4px',
+        padding: '4px',
+        background: '#fff',
+        minHeight: '280px'
+      }"
+    >
+      <a-row>
+        <div style="display: flex;height: calc(100% - 47px);">
+          <div style="width:230px;border-right: 1px solid #dce3e8;">
+            <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
+          </div>
+          <div id="efContainer" ref="efContainer" class="container" v-flowDrag>
+            <template v-for="node in data.activities">
+              <flow-node
+                :id="node.id"
+                :key="node.id"
+                :node="node"
+                :activeElement="activeElement"
+                @changeNodeSite="changeNodeSite"
+                @nodeRightMenu="nodeRightMenu"
+                @clickNode="clickNode"
+              ></flow-node>
+            </template>
+            <!-- 给画布一个默认的宽度和高度 -->
+            <div style="position:absolute;top: 2000px;left: 2000px;">
+              &nbsp;
+            </div>
+          </div>
+          <!-- 右侧表单 -->
+          <div
+            style="width: 300px;border-left: 1px solid #dce3e8;background-color: #FBFBFB"
+          >
+            <flow-node-form
+              ref="nodeForm"
+              @setLineLabel="setLineLabel"
+              @repaintEverything="repaintEverything"
+            ></flow-node-form>
           </div>
         </div>
-      </a-col>
-    </a-row>
-    <a-row>
-      <div style="display: flex;height: calc(100% - 47px);">
-        <div style="width:230px;border-right: 1px solid #dce3e8;">
-          <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
-        </div>
-        <div id="efContainer" ref="efContainer" class="container" v-flowDrag>
-          <template v-for="node in data.activities">
-            <flow-node
-              :id="node.id"
-              :key="node.id"
-              :node="node"
-              :activeElement="activeElement"
-              @changeNodeSite="changeNodeSite"
-              @nodeRightMenu="nodeRightMenu"
-              @clickNode="clickNode"
-            ></flow-node>
-          </template>
-          <!-- 给画布一个默认的宽度和高度 -->
-          <div style="position:absolute;top: 2000px;left: 2000px;">&nbsp;</div>
-        </div>
-        <!-- 右侧表单 -->
-        <div style="width: 300px;border-left: 1px solid #dce3e8;background-color: #FBFBFB">
-          <flow-node-form
-            ref="nodeForm"
-            @setLineLabel="setLineLabel"
-            @repaintEverything="repaintEverything"
-          ></flow-node-form>
-        </div>
-      </div>
-    </a-row>
+      </a-row>
 
-    <!-- 流程数据详情 -->
-    <flow-info v-if="flowInfoVisible" ref="flowInfo" :data="data"></flow-info>
-  </div>
+      <!-- 流程数据详情 -->
+      <flow-info v-if="flowInfoVisible" ref="flowInfo" :data="data"></flow-info>
+    </a-layout-content>
+  </a-layout>
 </template>
 
 <script>
