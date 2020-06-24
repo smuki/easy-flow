@@ -79,27 +79,28 @@
                 minHeight: '280px'
               }"
             >
-              <div
-                style="display: flex;height: calc(100% - 10px);"
-                id="efContainer"
-                ref="efContainer"
-                class="container"
-                v-flowDrag
-              >
-                <template v-for="node in data.activities">
-                  <flow-node
-                    :id="node.id"
-                    :key="node.id"
-                    :node="node"
-                    :activeElement="activeElement"
-                    @changeNodeSite="changeNodeSite"
-                    @nodeRightMenu="nodeRightMenu"
-                    @clickNode="clickNode"
-                  ></flow-node>
-                </template>
-                <!-- 给画布一个默认的宽度和高度 -->
-                <div style="position:absolute;top: 2000px;left: 2000px;">
-                  &nbsp;
+              <div style="display: flex;height: calc(100% - 10px);">
+                <div
+                  id="efContainer"
+                  ref="efContainer"
+                  class="container"
+                  v-flowDrag
+                >
+                  <template v-for="node in data.activities">
+                    <flow-node
+                      :id="node.id"
+                      :key="node.id"
+                      :node="node"
+                      :activeElement="activeElement"
+                      @changeNodeSite="changeNodeSite"
+                      @nodeRightMenu="nodeRightMenu"
+                      @clickNode="clickNode"
+                    ></flow-node>
+                  </template>
+                  <!-- 给画布一个默认的宽度和高度 -->
+                  <div style="position:absolute;top: 2000px;left: 2000px;">
+                    &nbsp;
+                  </div>
                 </div>
               </div>
             </a-layout-content>
