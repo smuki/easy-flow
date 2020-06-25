@@ -5,9 +5,11 @@
         <!--顶部工具菜单-->
         <a-col :span="24">
           <div class="ef-tooltar">
-            <a-button type="primary" :underline="false">{{
+            <a-button type="primary" :underline="false">
+              {{
               data.name
-            }}</a-button>
+              }}
+            </a-button>
             <a-divider type="vertical"></a-divider>
             <a-button
               type="primary"
@@ -16,56 +18,36 @@
               :disabled="!this.activeElement.type"
             ></a-button>
             <a-divider type="vertical"></a-divider>
-            <a-button
-              type="primary"
-              icon="download"
-              @click="downloadData"
-            ></a-button>
-            <!--                    <el-divider direction="vertical"></el-divider>-->
-            <!--                    <el-button type="text" icon="el-icon-plus" size="large" @click="zoomAdd"></el-button>-->
-            <!--                    <el-divider direction="vertical"></el-divider>-->
-            <!--                    <el-button type="text" icon="el-icon-minus" size="large" @click="zoomSub"></el-button>-->
+            <a-button type="primary" icon="download" @click="downloadData"></a-button>
+            <!--  <a-divider type="vertical"></a-divider>-->
+            <a-button type="text" icon="plus" size="large" @click="zoomAdd"></a-button>
+            <!--  <a-divider type="vertical"></a-divider>-->
+            <a-button type="text" icon="minus" size="large" @click="zoomSub"></a-button>
             <div style="float:right;margin-right:5px">
-              <a-button icon="el-icon-document" @click="dataInfo"
-                >流程信息</a-button
-              >
-              <a-button @click="dataReloadA" icon="el-icon-refresh"
-                >流程A</a-button
-              >
-              <a-button @click="dataReloadB" icon="el-icon-refresh"
-                >流程B</a-button
-              >
-              <a-button @click="dataReloadC" icon="el-icon-refresh"
-                >流程C</a-button
-              >
-              <a-button @click="dataReloadD" icon="el-icon-refresh"
-                >自定义样式</a-button
-              >
-              <a-button @click="dataReloadE" icon="el-icon-refresh"
-                >流程E</a-button
-              >
+              <a-button icon="el-icon-document" @click="dataInfo">流程信息</a-button>
+              <a-button @click="dataReloadA" icon="el-icon-refresh">流程A</a-button>
+              <a-button @click="dataReloadB" icon="el-icon-refresh">流程B</a-button>
+              <a-button @click="dataReloadC" icon="el-icon-refresh">流程C</a-button>
+              <a-button @click="dataReloadD" icon="el-icon-refresh">自定义样式</a-button>
+              <a-button @click="dataReloadE" icon="el-icon-refresh">流程E</a-button>
             </div>
           </div>
         </a-col>
       </a-row>
     </a-layout-header>
-    <a-layout-content
-      :style="{
+    <a-layout-content :style="{
         background: '#c0c0c0'
-      }"
-    >
+      }">
       <a-layout>
-        <a-layout-sider
-          :style="{
+        <a-layout-sider :style="{
             background: '#fff'
-          }"
-        >
+          }">
           <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
         </a-layout-sider>
         <a-layout-content
           :style="{
-            margin: '4px 4px',
-            padding: '4px',
+            margin: '1px 1px',
+            padding: '1px',
             background: '#fff',
             minHeight: '280px'
           }"
@@ -73,19 +55,14 @@
           <a-layout>
             <a-layout-content
               :style="{
-                margin: '4px 4px',
-                padding: '4px',
+                margin: '1px 1px',
+                padding: '1px',
                 background: '#fff',
                 minHeight: '280px'
               }"
             >
-              <div style="display: flex;height: calc(100% - 10px);">
-                <div
-                  id="efContainer"
-                  ref="efContainer"
-                  class="container"
-                  v-flowDrag
-                >
+              <div style="display:flex;height: calc(100%);">
+                <div id="efContainer" ref="efContainer" class="container" v-flowDrag>
                   <template v-for="node in data.activities">
                     <flow-node
                       :id="node.id"
@@ -98,9 +75,7 @@
                     ></flow-node>
                   </template>
                   <!-- 给画布一个默认的宽度和高度 -->
-                  <div style="position:absolute;top: 2000px;left: 2000px;">
-                    &nbsp;
-                  </div>
+                  <div style="position:absolute;top: 2000px;left: 2000px;">&nbsp;</div>
                 </div>
               </div>
             </a-layout-content>
@@ -118,11 +93,7 @@
               ></flow-node-form>
 
               <!-- 流程数据详情 -->
-              <flow-info
-                v-if="flowInfoVisible"
-                ref="flowInfo"
-                :data="data"
-              ></flow-info>
+              <flow-info v-if="flowInfoVisible" ref="flowInfo" :data="data"></flow-info>
             </a-layout-sider>
           </a-layout>
         </a-layout-content>

@@ -1,22 +1,17 @@
 <template>
-  <div class="flow-menu" ref="tool" style="height:calc(100%-50px);">
+  <div class="flow-menu" ref="tool">
     <div v-for="menu in menuList" :key="menu.id">
-      <span class="ef-node-pmenu" @click="menu.open = !menu.open"
-        ><i
+      <span class="ef-node-pmenu" @click="menu.open = !menu.open">
+        <i
           :class="{
             'el-icon-caret-bottom': menu.open,
             'el-icon-caret-right': !menu.open
           }"
-        ></i
-        >&nbsp;{{ menu.name }}</span
-      >
-      <ul v-show="menu.open" class="ant-menu ant-menu-inline  ant-menu-sub">
-        <draggable
-          @end="end"
-          @start="move"
-          v-model="menu.children"
-          :options="draggableOptions"
-        >
+        ></i>
+        &nbsp;{{ menu.name }}
+      </span>
+      <ul v-show="menu.open" class="ant-menu ant-menu-inline ant-menu-sub">
+        <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
           <li
             style="padding-left: 30px;"
             v-for="subMenu in menu.children"
@@ -24,7 +19,8 @@
             :key="subMenu.id"
             :type="subMenu.id"
           >
-            <i :class="subMenu.ico"></i>{{ subMenu.description }}
+            <i :class="subMenu.ico"></i>
+            {{ subMenu.description }}
           </li>
         </draggable>
       </ul>
