@@ -1,14 +1,12 @@
 <template>
   <a-layout>
-    <a-layout-header style="background: #fff; padding: 0">
+    <a-layout-header style="background: #fff; padding: 0;height:'100%'">
       <a-row>
         <!--顶部工具菜单-->
         <a-col :span="24">
           <div class="ef-tooltar">
             <a-button type="primary" :underline="false">
-              {{
-              data.name
-              }}
+              {{ data.name }}
             </a-button>
             <a-divider type="vertical"></a-divider>
             <a-button
@@ -18,36 +16,69 @@
               :disabled="!this.activeElement.type"
             ></a-button>
             <a-divider type="vertical"></a-divider>
-            <a-button type="primary" icon="download" @click="downloadData"></a-button>
+            <a-button
+              type="primary"
+              icon="download"
+              @click="downloadData"
+            ></a-button>
             <!--  <a-divider type="vertical"></a-divider>-->
-            <a-button type="text" icon="plus" size="large" @click="zoomAdd"></a-button>
+            <a-button
+              type="text"
+              icon="plus"
+              size="large"
+              @click="zoomAdd"
+            ></a-button>
             <!--  <a-divider type="vertical"></a-divider>-->
-            <a-button type="text" icon="minus" size="large" @click="zoomSub"></a-button>
+            <a-button
+              type="text"
+              icon="minus"
+              size="large"
+              @click="zoomSub"
+            ></a-button>
             <div style="float:right;margin-right:5px">
-              <a-button icon="el-icon-document" @click="dataInfo">流程信息</a-button>
-              <a-button @click="dataReloadA" icon="el-icon-refresh">流程A</a-button>
-              <a-button @click="dataReloadB" icon="el-icon-refresh">流程B</a-button>
-              <a-button @click="dataReloadC" icon="el-icon-refresh">流程C</a-button>
-              <a-button @click="dataReloadD" icon="el-icon-refresh">自定义样式</a-button>
-              <a-button @click="dataReloadE" icon="el-icon-refresh">流程E</a-button>
+              <a-button icon="el-icon-document" @click="dataInfo"
+                >流程信息</a-button
+              >
+              <a-button @click="dataReloadA" icon="el-icon-refresh"
+                >流程A</a-button
+              >
+              <a-button @click="dataReloadB" icon="el-icon-refresh"
+                >流程B</a-button
+              >
+              <a-button @click="dataReloadC" icon="el-icon-refresh"
+                >流程C</a-button
+              >
+              <a-button @click="dataReloadD" icon="el-icon-refresh"
+                >自定义样式</a-button
+              >
+              <a-button @click="dataReloadE" icon="el-icon-refresh"
+                >流程E</a-button
+              >
             </div>
           </div>
         </a-col>
       </a-row>
     </a-layout-header>
-    <a-layout-content :style="{
-        background: '#c0c0c0'
-      }">
-      <a-layout>
-        <a-layout-sider :style="{
-            background: '#fff'
-          }">
+    <a-layout-content
+      :style="{
+        background: '#c0c0c0',
+        height: '100%'
+      }"
+    >
+      <a-layout v-bind:style="MainBoxHeight" style="padding:10px">
+        <a-layout-sider
+          :style="{
+            background: '#fff',
+
+            overflow: 'auto'
+          }"
+        >
           <node-menu @addNode="addNode" ref="nodeMenu"></node-menu>
         </a-layout-sider>
         <a-layout-content
           :style="{
-            margin: '1px 1px',
-            padding: '1px',
+            margin: '0',
+            padding: '0',
             background: '#fff',
             minHeight: '280px'
           }"
@@ -55,14 +86,22 @@
           <a-layout>
             <a-layout-content
               :style="{
-                margin: '1px 1px',
-                padding: '1px',
+                margin: '0',
+                padding: '0',
                 background: '#fff',
                 minHeight: '280px'
               }"
             >
-              <div style="display:flex;height: calc(100%);">
-                <div id="efContainer" ref="efContainer" class="container" v-flowDrag>
+              <div
+                style="display:flex;height: calc(100%);"
+                v-bind:style="MainHeight"
+              >
+                <div
+                  id="efContainer"
+                  ref="efContainer"
+                  class="container"
+                  v-flowDrag
+                >
                   <template v-for="node in data.activities">
                     <flow-node
                       :id="node.id"
@@ -75,7 +114,9 @@
                     ></flow-node>
                   </template>
                   <!-- 给画布一个默认的宽度和高度 -->
-                  <div style="position:absolute;top: 2000px;left: 2000px;">&nbsp;</div>
+                  <div style="position:absolute;top: 2000px;left: 2000px;">
+                    &nbsp;
+                  </div>
                 </div>
               </div>
             </a-layout-content>
@@ -93,7 +134,11 @@
               ></flow-node-form>
 
               <!-- 流程数据详情 -->
-              <flow-info v-if="flowInfoVisible" ref="flowInfo" :data="data"></flow-info>
+              <flow-info
+                v-if="flowInfoVisible"
+                ref="flowInfo"
+                :data="data"
+              ></flow-info>
             </a-layout-sider>
           </a-layout>
         </a-layout-content>
@@ -103,6 +148,7 @@
 </template>
 
 <script>
+import debounce from "lodash.debounce";
 import draggable from "vuedraggable";
 // import { jsPlumb } from 'jsplumb'
 // 使用修改后的jsplumb
@@ -118,6 +164,13 @@ import { getDataB } from "./data_B";
 import { getDataC } from "./data_C";
 import { getDataD } from "./data_D";
 import { getDataE } from "./data_E";
+
+function getclientPoint() {
+  return {
+    width: document.documentElement.clientWidth || document.body.clientWidth,
+    height: document.documentElement.clientHeight || document.body.clientHeight
+  };
+}
 
 export default {
   data() {
@@ -142,6 +195,8 @@ export default {
         sourceId: undefined,
         targetId: undefined
       },
+      nWidth: 500,
+      nHeight: 800,
       zoom: 0.5
     };
   },
@@ -191,6 +246,19 @@ export default {
       }
     }
   },
+  computed: {
+    MainHeight: function() {
+      return {
+        height: this.nHeight - 20 + "px"
+      };
+    },
+    MainBoxHeight: function() {
+      return {
+        height: this.nHeight + "px"
+      };
+    }
+  },
+
   mounted() {
     this.jsPlumb = jsPlumb.getInstance({
       PaintStyle: {
@@ -208,8 +276,32 @@ export default {
       // 默认加载流程A的数据、在这里可以根据具体的业务返回符合流程数据格式的数据即可
       this.dataReload(getDataB());
     });
+    var __resizeHanlder = debounce(
+      e => {
+        this.$bus.$emit("layout/SIZE_CHANGED", 1);
+        that.fnResizeHanlder(e);
+      },
+      50,
+      { leading: true }
+    );
+    window.addEventListener("resize", __resizeHanlder);
   },
   methods: {
+    fnResizeHanlder(e) {
+      let point = getclientPoint();
+      console.log(e);
+
+      this.nWidth = point.width;
+      this.nHeight = point.height - 120;
+      if (this.nWidth <= 920) {
+        this.nWidth = 920;
+      }
+      if (e.target) {
+        console.log("innerWidth=" + e.target.innerWidth);
+        console.log("nWidth=" + this.nWidth);
+      }
+    },
+
     // 返回唯一标识
     getUUID() {
       return Math.random()
@@ -514,6 +606,7 @@ export default {
     },
     // 加载流程图
     dataReload(data) {
+      this.jsPlumb.reset();
       this.easyFlowVisible = false;
       this.data.activities = [];
       this.data.connections = [];
@@ -523,6 +616,7 @@ export default {
         this.data = data;
         this.$nextTick(() => {
           this.jsPlumb = jsPlumb.getInstance();
+
           this.$nextTick(() => {
             this.jsPlumbInit();
           });
