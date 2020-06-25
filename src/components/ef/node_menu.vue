@@ -11,9 +11,13 @@
         &nbsp;{{ menu.name }}
       </span>
       <ul v-show="menu.open" class="ant-menu ant-menu-inline ant-menu-sub">
-        <draggable @end="end" @start="move" v-model="menu.children" :options="draggableOptions">
+        <draggable
+          @end="end"
+          @start="move"
+          v-model="menu.children"
+          :options="draggableOptions"
+        >
           <li
-            style="padding-left: 30px;"
             v-for="subMenu in menu.children"
             class="ant-menu-item"
             :key="subMenu.id"

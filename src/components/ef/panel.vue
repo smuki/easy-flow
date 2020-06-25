@@ -65,11 +65,11 @@
         height: '100%'
       }"
     >
-      <a-layout v-bind:style="MainBoxHeight" style="padding:10px">
+      <a-layout v-bind:style="MainBoxHeight" style="padding:0px">
         <a-layout-sider
+          width="230"
           :style="{
             background: '#fff',
-
             overflow: 'auto'
           }"
         >
@@ -122,6 +122,7 @@
             </a-layout-content>
             <a-layout-sider
               :reverseArrow="true"
+              width="280"
               :style="{
                 background: '#fff'
               }"
