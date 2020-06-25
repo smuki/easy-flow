@@ -154,6 +154,8 @@ import draggable from "vuedraggable";
 // import { jsPlumb } from 'jsplumb'
 // 使用修改后的jsplumb
 import "./jsplumb";
+import { JsPlumbUtils } from "./jsplumb-utils";
+
 import { easyFlowMixin } from "@/components/ef/mixins";
 import flowNode from "@/components/ef/node";
 import nodeMenu from "@/components/ef/node_menu";
