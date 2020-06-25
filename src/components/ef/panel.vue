@@ -153,8 +153,9 @@ import debounce from "lodash.debounce";
 import draggable from "vuedraggable";
 // import { jsPlumb } from 'jsplumb'
 // 使用修改后的jsplumb
-import "./jsplumb";
+//import "./jsplumb";
 //import { JsPlumbUtils } from "./jsplumb-utils";
+import { jsPlumb } from "jsplumb";
 
 import { easyFlowMixin } from "@/components/ef/mixins";
 import flowNode from "@/components/ef/node";
@@ -281,7 +282,7 @@ export default {
     });
     var __resizeHanlder = debounce(
       e => {
-        this.$bus.$emit("layout/SIZE_CHANGED", 1);
+        //this.$bus.$emit("layout/SIZE_CHANGED", 1);
         that.fnResizeHanlder(e);
       },
       50,
