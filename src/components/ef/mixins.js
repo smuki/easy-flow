@@ -19,7 +19,7 @@ export const easyFlowMixin = {
                  * 连线的两端端点类型：圆形
                  * radius: 圆的半径，越大圆越大
                  */
-                // Endpoint: ['Dot', {radius: 5, cssClass: 'ef-dot', hoverClass: 'ef-dot-hover'}],
+                endpoints:[["Dot", { radius:8 }],["Dot", { radius:8 }]],//设置连接点的形状为圆形
                 /**
                  * 连线的两端端点类型：矩形
                  * height: 矩形的高
@@ -33,7 +33,7 @@ export const easyFlowMixin = {
                 /**
                  * 空白端点
                  */
-                Endpoint: ['Blank', {Overlays: ''}],
+                //Endpoint: ['Blank', {Overlays: ''}],
                 // Endpoints: [['Dot', {radius: 5, cssClass: 'ef-dot', hoverClass: 'ef-dot-hover'}], ['Rectangle', {height: 20, width: 20, cssClass: 'ef-rectangle', hoverClass: 'ef-rectangle-hover'}]],
                 /**
                  * 连线的两端端点样式

@@ -392,15 +392,6 @@ export default {
       for (var i = 0; i < this.data.activities.length; i++) {
         let node = this.data.activities[i];
         this.addNode2(node);
-        
-        // 设置源点，可以拖出线连接其他节点
-        // this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions);
-        // // 设置目标点，其他源点拖出的线可以连接该节点
-        // this.jsPlumb.makeTarget(node.id, this.jsplumbTargetOptions);
-        // this.jsPlumb.draggable(node.id, {
-        //   containment: "parent",
-        //   stop: function(el) {}
-        // });
       }
       // 初始化连线
       for (var i = 0; i < this.data.connections.length; i++) {
