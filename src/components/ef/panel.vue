@@ -280,6 +280,7 @@ export default {
       // 默认加载流程A的数据、在这里可以根据具体的业务返回符合流程数据格式的数据即可
       this.dataReload(getDataB());
     });
+    const that = this;
     var __resizeHanlder = debounce(
       e => {
         //this.$bus.$emit("layout/SIZE_CHANGED", 1);

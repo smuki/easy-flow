@@ -65,7 +65,7 @@ export const easyFlowMixin = {
                     ['Arrow', {
                         width: 10, // 箭头尾部的宽度
                         length: 8, // 从箭头的尾部到头部的距离
-                        location: 1, // 位置，建议使用0～1之间
+                        location: 0.95, // 位置，建议使用0～1之间
                         direction: 1, // 方向，默认值为1（表示向前），可选-1（表示向后）
                         foldback: 0.623 // 折回，也就是尾翼的角度，默认0.623，当为1时，为正三角
                     }],
@@ -76,14 +76,15 @@ export const easyFlowMixin = {
                     //         }
                     //     }
                     // }],
+                    // 连线中间显示的文字
                     ['Label', {
                         label: '',
-                        location: 0.1,
+                        location: 0.2,
                         cssClass: 'aLabel'
                     }]
                 ],
                 // 绘制图的模式 svg、canvas
-                RenderMode: 'svg',
+                RenderMode: 'canvas',
                 // 鼠标滑过线的样式
                 HoverPaintStyle: {stroke: '#b0b2b5', strokeWidth: 1},
                 // 滑过锚点效果
@@ -95,13 +96,29 @@ export const easyFlowMixin = {
              */
             jsplumbConnectOptions: {
                 isSource: true,
-                isTarget: true,
+                isTarget: false,
+                endpoints:[["Dot", { radius:8 }],["Dot", { radius:8 }]],//设置连接点的形状为圆形
                 // 动态锚点、提供了4个方向 Continuous、AutoDefault
                 anchor: 'Continuous',
                 // 设置连线上面的label样式
                 labelStyle: {
                     cssClass: 'flowLabel'
                 },
+                connectorOverlays:[
+                    ["Custom", {
+                      create:function(component) {
+                        return $("<div class='event_node'><span class='glyphicon glyphicon-plus'></span></div>");                
+                      },
+                      //节点在线上的位置
+                      location:0.5,
+                      id:"customOverlay"
+                    }],
+                    ['Arrow',{
+                        width: 20,
+                        length: 12,
+                        location: 0.8
+                    }]
+                ],
                 // 修改了jsplumb 源码，支持label 为空传入自定义style
                 emptyLabelStyle: {
                     cssClass: 'emptyFlowLabel'
