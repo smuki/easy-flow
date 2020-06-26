@@ -50,7 +50,7 @@ export const easyFlowMixin = {
                     // 线的颜色
                     stroke: '#E0E3E7',
                     // 线的粗细，值越大线越粗
-                    strokeWidth: 2.5,
+                    strokeWidth: 2.6,
                     // 设置外边线的颜色，默认设置透明，这样别人就看不见了，点击线的时候可以不用精确点击，参考 https://blog.csdn.net/roymno2/article/details/72717101
                     outlineStroke: 'transparent',
                     // 线外边的宽，值越大，线的点击范围越大
@@ -63,9 +63,9 @@ export const easyFlowMixin = {
                 Overlays: [
                     // 箭头叠加
                     ['Arrow', {
-                        width: 10, // 箭头尾部的宽度
+                        width: 12, // 箭头尾部的宽度
                         length: 8, // 从箭头的尾部到头部的距离
-                        location: 0.95, // 位置，建议使用0～1之间
+                        location: 0.91, // 位置，建议使用0～1之间
                         direction: 1, // 方向，默认值为1（表示向前），可选-1（表示向后）
                         foldback: 0.623 // 折回，也就是尾翼的角度，默认0.623，当为1时，为正三角
                     }],

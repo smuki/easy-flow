@@ -21,24 +21,8 @@
               icon="download"
               @click="downloadData"
             ></a-button>
-            <!--  <a-divider type="vertical"></a-divider>-->
-            <a-button
-              type="text"
-              icon="plus"
-              size="large"
-              @click="zoomAdd"
-            ></a-button>
-            <!--  <a-divider type="vertical"></a-divider>-->
-            <a-button
-              type="text"
-              icon="minus"
-              size="large"
-              @click="zoomSub"
-            ></a-button>
+           
             <div style="float:right;margin-right:5px">
-              <a-button icon="el-icon-document" @click="dataInfo"
-                >流程信息</a-button
-              >
               <a-button @click="dataReloadA" icon="el-icon-refresh"
                 >流程A</a-button
               >
@@ -608,13 +592,6 @@ export default {
       console.log("重绘");
       this.jsPlumb.repaint();
     },
-    // 流程数据信息
-    dataInfo() {
-      this.flowInfoVisible = true;
-      this.$nextTick(function() {
-        this.$refs.flowInfo.init();
-      });
-    },
     // 加载流程图
     dataReload(data) {
       this.jsPlumb.reset();
@@ -653,24 +630,10 @@ export default {
     dataReloadE() {
       this.dataReload(getDataE());
     },
-    zoomAdd() {
-      if (this.zoom >= 1) {
-        return;
-      }
-      this.zoom = this.zoom + 0.1;
-      this.$refs.efContainer.style.transform = `scale(${this.zoom})`;
-      this.jsPlumb.setZoom(this.zoom);
-    },
-    zoomSub() {
-      if (this.zoom <= 0) {
-        return;
-      }
-      this.zoom = this.zoom - 0.1;
-      this.$refs.efContainer.style.transform = `scale(${this.zoom})`;
-      this.jsPlumb.setZoom(this.zoom);
-    },
     // 下载数据
     downloadData() {
+        console.log(JSON.stringify(this.data));
+
         var datastr ="data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.data, null, "\t"));
         var downloadAnchorNode = document.createElement("a");
         downloadAnchorNode.setAttribute("href", datastr);
