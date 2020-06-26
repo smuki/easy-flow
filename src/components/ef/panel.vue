@@ -391,14 +391,16 @@ export default {
       // 初始化节点
       for (var i = 0; i < this.data.activities.length; i++) {
         let node = this.data.activities[i];
+        this.addNode2(node);
+        
         // 设置源点，可以拖出线连接其他节点
-        this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions);
+        // this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions);
         // // 设置目标点，其他源点拖出的线可以连接该节点
-        this.jsPlumb.makeTarget(node.id, this.jsplumbTargetOptions);
-        this.jsPlumb.draggable(node.id, {
-          containment: "parent",
-          stop: function(el) {}
-        });
+        // this.jsPlumb.makeTarget(node.id, this.jsplumbTargetOptions);
+        // this.jsPlumb.draggable(node.id, {
+        //   containment: "parent",
+        //   stop: function(el) {}
+        // });
       }
       // 初始化连线
       for (var i = 0; i < this.data.connections.length; i++) {
@@ -486,6 +488,18 @@ export default {
         }
       }
     },
+
+    addNode2(node) {
+
+     // 设置源点，可以拖出线连接其他节点
+        this.jsPlumb.makeSource(node.id, this.jsplumbSourceOptions);
+        // // 设置目标点，其他源点拖出的线可以连接该节点
+        this.jsPlumb.makeTarget(node.id, this.jsplumbTargetOptions);
+        this.jsPlumb.draggable(node.id, {
+          containment: "parent",
+          stop: function(el) {}
+        });
+    },
     /**
      * 拖拽结束后添加新的节点
      * @param evt
@@ -540,6 +554,7 @@ export default {
         });
       });
     },
+
     /**
      * 删除节点
      * @param nodeId 被删除节点的ID
@@ -665,24 +680,13 @@ export default {
     },
     // 下载数据
     downloadData() {
-      this.$confirm("确定要下载该流程数据吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        closeOnClickModal: false
-      })
-        .then(() => {
-          var datastr =
-            "data:text/json;charset=utf-8," +
-            encodeURIComponent(JSON.stringify(this.data, null, "\t"));
-          var downloadAnchorNode = document.createElement("a");
-          downloadAnchorNode.setAttribute("href", datastr);
-          downloadAnchorNode.setAttribute("download", "data.json");
-          downloadAnchorNode.click();
-          downloadAnchorNode.remove();
-          this.$message.success("正在下载中,请稍后...");
-        })
-        .catch(() => {});
+        var datastr ="data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.data, null, "\t"));
+        var downloadAnchorNode = document.createElement("a");
+        downloadAnchorNode.setAttribute("href", datastr);
+        downloadAnchorNode.setAttribute("download", "data.json");
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+        this.$message.success("正在下载中,请稍后...");
     }
   }
 };

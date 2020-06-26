@@ -10,7 +10,7 @@
         ></i>
         &nbsp;{{ menu.name }}
       </span>
-      <ul v-show="menu.open" class="ant-menu ant-menu-inline ant-menu-sub">
+      <ul v-show="menu.open" class="ef-node-menu-ul">
         <draggable
           @end="end"
           @start="move"
@@ -19,7 +19,7 @@
         >
           <li
             v-for="subMenu in menu.children"
-            class="ant-menu-item"
+            class="ef-node-menu-li"
             :key="subMenu.id"
             :type="subMenu.id"
           >
