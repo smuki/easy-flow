@@ -44,7 +44,7 @@
     >
       <a-layout v-bind:style="MainBoxHeight" style="padding:0px">
         <a-layout-sider
-          width="230"
+          width="180"
           :style="{
             background: '#fff',
             overflow: 'auto'
@@ -100,7 +100,7 @@
             </a-layout-content>
             <a-layout-sider
               :reverseArrow="true"
-              width="280"
+              width="320"
               :style="{
                 background: '#fff'
               }"

@@ -9,13 +9,11 @@
   >
     <!-- 最左侧的那条竖线 -->
     <div class="ef-node-left flow-node-drag">
-
-    <div class="ef-node-left"></div>
-
-      <!-- 节点类型的图标 -->
-    <div class="ef-node-left-ico flow-node-drag">
-        <i :class="nodeIcoClass"><a-icon type="link"/></i>
-    </div>
+      <div class="ef-node-left"></div>
+        <!-- 节点类型的图标 -->
+      <div class="ef-node-left-ico flow-node-drag">
+          <i :class="nodeIcoClass" ><a-icon class="flow-node-drag" type="link"/></i>
+      </div>
     </div>
     <!-- 节点名称 -->
     <div>
@@ -35,7 +33,12 @@
       <a-icon type="sync" spin v-show="node.state === 'running'" />
     </div>
     <div class="ef-node-delete-ico">
-      <a-icon type="delete" @click="deleteElement" />
+       <a-popconfirm placement="topLeft" ok-text="是" cancel-text="否" @confirm="deleteElement">
+        <template slot="title">确认删除吗？
+        </template>
+        <a-icon type="delete" />
+      </a-popconfirm>
+
     </div>
   </div>
 </template>
@@ -81,20 +84,18 @@ export default {
       this.$emit('deleteElement',{
         nodeId: this.node.id,
         type: 'node',
-        left: this.$refs.node.style.left,
-        top: this.$refs.node.style.top,
       })
     },
     // 鼠标移动后抬起
     changeNodeSite() {
       // 避免抖动
-      if (this.node.left == this.$refs.node.style.left && this.node.top == this.$refs.node.style.top) {
+      if (this.node.left == this.$refs.node.offsetLeft && this.node.top == this.$refs.node.offsetTop) {
         return;
       }
       this.$emit('changeNodeSite', {
         nodeId: this.node.id,
-        left: this.$refs.node.style.left,
-        top: this.$refs.node.style.top,
+        left: this.$refs.node.offsetLeft,
+        top: this.$refs.node.offsetTop,
       })
     }
   }

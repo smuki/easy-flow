@@ -19,7 +19,7 @@ export const easyFlowMixin = {
                  * 连线的两端端点类型：圆形
                  * radius: 圆的半径，越大圆越大
                  */
-                endpoints:[["Dot", { radius:8 }],["Dot", { radius:8 }]],//设置连接点的形状为圆形
+                endpoints:[["Dot", { radius:8 }],['Blank', { radius: 4 }]],//设置连接点的形状为圆形
                 /**
                  * 连线的两端端点类型：矩形
                  * height: 矩形的高
@@ -65,7 +65,7 @@ export const easyFlowMixin = {
                     ['Arrow', {
                         width: 12, // 箭头尾部的宽度
                         length: 8, // 从箭头的尾部到头部的距离
-                        location: 0.91, // 位置，建议使用0～1之间
+                        location: 1, // 位置，建议使用0～1之间
                         direction: 1, // 方向，默认值为1（表示向前），可选-1（表示向后）
                         foldback: 0.623 // 折回，也就是尾翼的角度，默认0.623，当为1时，为正三角
                     }],
@@ -97,7 +97,7 @@ export const easyFlowMixin = {
             jsplumbConnectOptions: {
                 isSource: true,
                 isTarget: false,
-                endpoints:[["Dot", { radius:8 }],["Dot", { radius:8 }]],//设置连接点的形状为圆形
+                endpoints:[["Dot", { radius:8 }],['Blank', { radius: 4 }]],//设置连接点的形状为圆形
                 // 动态锚点、提供了4个方向 Continuous、AutoDefault
                 anchor: 'Continuous',
                 // 设置连线上面的label样式
