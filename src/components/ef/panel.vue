@@ -11,13 +11,6 @@
             <a-divider type="vertical"></a-divider>
             <a-button
               type="primary"
-              icon="delete"
-              @click="deleteElement"
-              :disabled="!this.activeElement.type"
-            ></a-button>
-            <a-divider type="vertical"></a-divider>
-            <a-button
-              type="primary"
               icon="download"
               @click="downloadData"
             ></a-button>
@@ -92,6 +85,7 @@
                       :key="node.id"
                       :node="node"
                       :activeElement="activeElement"
+                      @deleteElement="deleteElement"
                       @changeNodeSite="changeNodeSite"
                       @nodeRightMenu="nodeRightMenu"
                       @clickNode="clickNode"
@@ -418,23 +412,15 @@ export default {
       });
     },
     // 删除激活的元素
-    deleteElement() {
-      if (this.activeElement.type === "node") {
-        this.deleteNode(this.activeElement.nodeId);
-      } else if (this.activeElement.type === "line") {
-        this.$confirm("确定删除所点击的线吗?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        })
-          .then(() => {
-            var conn = this.jsPlumb.getConnections({
-              source: this.activeElement.sourceId,
-              target: this.activeElement.targetId
-            })[0];
-            this.jsPlumb.deleteConnection(conn);
-          })
-          .catch(() => {});
+    deleteElement(node) {
+      if (node.type === "node") {
+        this.deleteNode(node.nodeId);
+      }else{
+        var conn = this.jsPlumb.getConnections({
+          source: node.sourceId,
+          target: node.targetId
+        })[0];
+        this.jsPlumb.deleteConnection(conn);
       }
     },
     // 删除线
@@ -535,29 +521,20 @@ export default {
      * @param nodeId 被删除节点的ID
      */
     deleteNode(nodeId) {
-      this.$confirm("确定要删除节点" + nodeId + "?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-        closeOnClickModal: false
-      })
-        .then(() => {
-          /**
-           * 这里需要进行业务判断，是否可以删除
-           */
-          this.data.activities = this.data.activities.filter(function(node) {
-            if (node.id === nodeId) {
-              // 伪删除，将节点隐藏，否则会导致位置错位
-              // node.show = false
-              return false;
-            }
-            return true;
-          });
-          this.$nextTick(function() {
-            this.jsPlumb.removeAllEndpoints(nodeId);
-          });
-        })
-        .catch(() => {});
+      /**
+       * 这里需要进行业务判断，是否可以删除
+       */
+      this.data.activities = this.data.activities.filter(function(node) {
+        if (node.id === nodeId) {
+          // 伪删除，将节点隐藏，否则会导致位置错位
+          // node.show = false
+          return false;
+        }
+        return true;
+      });
+      this.$nextTick(function() {
+        this.jsPlumb.removeAllEndpoints(nodeId);
+      });
       return true;
     },
     clickNode(nodeId) {

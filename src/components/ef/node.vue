@@ -1,5 +1,6 @@
 <template>
   <div
+    class="ef-node"
     ref="node"
     :style="nodeContainerStyle"
     @click="clickNode"
@@ -28,22 +29,13 @@
     
     <!-- 节点状态图标 -->
     <div class="ef-node-right-ico">
-      <i
-        class="el-icon-circle-check el-node-state-success"
-        v-show="node.state === 'success'"
-      ></i>
-      <i
-        class="el-icon-circle-close el-node-state-error"
-        v-show="node.state === 'error'"
-      ></i>
-      <i
-        class="el-icon-warning-outline el-node-state-warning"
-        v-show="node.state === 'warning'"
-      ></i>
-      <i
-        class="el-icon-loading el-node-state-running"
-        v-show="node.state === 'running'"
-      ></i>
+      <a-icon type="check" v-show="node.state === 'success'" />
+      <a-icon type="close-circle" v-show="node.state === 'error'"/>
+      <a-icon type="warning" v-show="node.state === 'warning'"/>
+      <a-icon type="sync" spin v-show="node.state === 'running'" />
+    </div>
+    <div class="ef-node-delete-ico">
+      <a-icon type="delete" @click="deleteElement" />
     </div>
   </div>
 </template>
@@ -84,6 +76,14 @@ export default {
     // 点击节点
     clickNode() {
       this.$emit('clickNode', this.node.id)
+    },
+    deleteElement() {
+      this.$emit('deleteElement',{
+        nodeId: this.node.id,
+        type: 'node',
+        left: this.$refs.node.style.left,
+        top: this.$refs.node.style.top,
+      })
     },
     // 鼠标移动后抬起
     changeNodeSite() {
