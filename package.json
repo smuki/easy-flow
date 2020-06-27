@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "ant-design-vue": "^1.6.2",
-    "element-ui": "2.9.1",
     "jsplumb": "^2.13.3",
     "lodash": "^4.17.15",
     "lodash.debounce": "^4.0.8",
