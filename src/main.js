@@ -5,16 +5,12 @@ import App from "./App";
 
 Vue.config.productionTip = false;
 
-//import ElementUI from "element-ui";
-//import "element-ui/lib/theme-chalk/index.css";
 import "@/components/ef/index.css";
 
 import Antd from "ant-design-vue";
 Vue.use(Antd);
 
 import "ant-design-vue/dist/antd.css";
-
-//Vue.use(ElementUI, { size: "small" });
 
 /* eslint-disable no-new */
 new Vue({
