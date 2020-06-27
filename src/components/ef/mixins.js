@@ -40,7 +40,7 @@ export const easyFlowMixin = {
                  * fill: 颜色值，如：#12aabb，为空不显示
                  * outlineWidth: 外边线宽度
                  */
-                EndpointStyle: {fill: '#1879ffa1', outlineWidth: 1},
+                EndpointStyle: {fill: '#1879ffa1', outlineWidth: 2},
                 // 是否打开jsPlumb的内部日志记录
                 LogEnabled: true,
                 /**
@@ -48,9 +48,9 @@ export const easyFlowMixin = {
                  */
                 PaintStyle: {
                     // 线的颜色
-                    stroke: '#E0E3E7',
+                    stroke: '#bbb',
                     // 线的粗细，值越大线越粗
-                    strokeWidth: 2.6,
+                    strokeWidth: 2,
                     // 设置外边线的颜色，默认设置透明，这样别人就看不见了，点击线的时候可以不用精确点击，参考 https://blog.csdn.net/roymno2/article/details/72717101
                     outlineStroke: 'transparent',
                     // 线外边的宽，值越大，线的点击范围越大
