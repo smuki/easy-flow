@@ -127,11 +127,6 @@ import nodeMenu from "@/components/ef/node_menu";
 import FlowInfo from "@/components/ef/info";
 import FlowNodeForm from "./node_form";
 import lodash from "lodash";
-import { getDataA } from "./data_A";
-import { getDataB } from "./data_B";
-import { getDataC } from "./data_C";
-import { getDataD } from "./data_D";
-import { getDataE } from "./data_E";
 
 function getclientPoint() {
   return {
@@ -270,7 +265,6 @@ export default {
         console.log("nWidth=" + this.nWidth);
       }
     },
-
     // 返回唯一标识
     getUUID() {
       return Math.random()
@@ -574,48 +568,16 @@ export default {
         });
       });
     },
-    // 模拟载入数据dataA
-    dataReloadA() {
-      this.dataReload(getDataA());
-    },
-    // 模拟载入数据dataB
-    dataReloadB() {
-      this.dataReload(getDataB());
-    },
-    // 模拟载入数据dataC
-    dataReloadC() {
-      this.dataReload(getDataC());
-    },
-    // 模拟载入数据dataD
-    dataReloadD() {
-      this.dataReload(getDataD());
-    },
-    dataReloadE() {
-      this.dataReload(getDataE());
-    },
     beforeUpload(file) {
        const that=this;
-       //this.fileList = [...this.fileList, file];
        const reader = new FileReader();
         reader.readAsText(file);
         reader.onload = () => {
-          //const canvas = document.createElement('canvas');
-          //const img = document.createElement('img');
-          //img.src = reader.result;
           this.dataReload(JSON.parse(reader.result));
           console.log(reader.result);
-          //img.onload = () => {
-          //  const ctx = canvas.getContext('2d');
-          //  ctx.drawImage(img, 0, 0);
-          //  ctx.fillStyle = 'red';
-          //  ctx.textBaseline = 'middle';
-          //  ctx.fillText('Ant Design', 20, 20);
-          //  canvas.toBlob(resolve);
-          // };
         };
       return false;
     },
-   
     // 下载数据
     downloadData() {
         console.log(JSON.stringify(this.data));
