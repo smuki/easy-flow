@@ -15,7 +15,7 @@
               @click="downloadData"
             ></a-button>
            
-           <a-upload :showUploadList="false" :transform-file="transformFile" :before-upload="beforeUpload">
+           <a-upload :showUploadList="false" :before-upload="beforeUpload">
              <a-button><a-icon type="upload" /></a-button>
            </a-upload>
           </div>
@@ -147,7 +147,10 @@ export default {
       // 是否加载完毕标志位
       loadEasyFlowFinish: false,
       // 数据
-      data: {},
+      data: {
+        activities:[],
+        connections:[],
+      },
       // 激活的元素、可能是节点、可能是连线
       activeElement: {
         // 可选值 node 、line
@@ -235,10 +238,16 @@ export default {
       EndpointStyle: { fill: "#567567" },
       Anchor: [0.5, 0.5, 1, 1]
     });
-    this.$nextTick(() => {
+    //this.$nextTick(() => {
       // 默认加载流程A的数据、在这里可以根据具体的业务返回符合流程数据格式的数据即可
-      this.dataReload(getDataB());
-    });
+      //this.dataReload(getDataB());
+    //});
+    this.jsPlumbInit();
+    this.jsPlumb.reset();
+    this.easyFlowVisible = false;
+    this.data.activities = [];
+    this.data.connections = [];
+
     const that = this;
     var __resizeHanlder = debounce(
       e => {
@@ -574,7 +583,7 @@ export default {
         reader.readAsText(file);
         reader.onload = () => {
           this.dataReload(JSON.parse(reader.result));
-          console.log(reader.result);
+          //console.log(reader.result);
         };
       return false;
     },
