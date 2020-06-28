@@ -15,6 +15,7 @@ export const easyFlowMixin = {
                 ConnectionsDetachable: false,
                 // 删除线的时候节点不删除
                 DeleteEndpointsOnDetach: false,
+                isSource:true,
                 /**
                  * 连线的两端端点类型：圆形
                  * radius: 圆的半径，越大圆越大

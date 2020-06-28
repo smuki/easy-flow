@@ -15,23 +15,9 @@
               @click="downloadData"
             ></a-button>
            
-            <div style="float:right;margin-right:5px">
-              <a-button @click="dataReloadA" icon="el-icon-refresh"
-                >流程A</a-button
-              >
-              <a-button @click="dataReloadB" icon="el-icon-refresh"
-                >流程B</a-button
-              >
-              <a-button @click="dataReloadC" icon="el-icon-refresh"
-                >流程C</a-button
-              >
-              <a-button @click="dataReloadD" icon="el-icon-refresh"
-                >自定义样式</a-button
-              >
-              <a-button @click="dataReloadE" icon="el-icon-refresh"
-                >流程E</a-button
-              >
-            </div>
+           <a-upload :showUploadList="false" :transform-file="transformFile" :before-upload="beforeUpload">
+             <a-button><a-icon type="upload" /></a-button>
+           </a-upload>
           </div>
         </a-col>
       </a-row>
@@ -607,6 +593,29 @@ export default {
     dataReloadE() {
       this.dataReload(getDataE());
     },
+    beforeUpload(file) {
+       const that=this;
+       //this.fileList = [...this.fileList, file];
+       const reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = () => {
+          //const canvas = document.createElement('canvas');
+          //const img = document.createElement('img');
+          //img.src = reader.result;
+          this.dataReload(JSON.parse(reader.result));
+          console.log(reader.result);
+          //img.onload = () => {
+          //  const ctx = canvas.getContext('2d');
+          //  ctx.drawImage(img, 0, 0);
+          //  ctx.fillStyle = 'red';
+          //  ctx.textBaseline = 'middle';
+          //  ctx.fillText('Ant Design', 20, 20);
+          //  canvas.toBlob(resolve);
+          // };
+        };
+      return false;
+    },
+   
     // 下载数据
     downloadData() {
         console.log(JSON.stringify(this.data));
